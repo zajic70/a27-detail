@@ -190,7 +190,7 @@
         var full = imgAttr(img, 'src');
         if (seen[full]) continue;
         seen[full] = 1;
-        items.push({ type: 'img', full: full, srcset: imgAttr(img, 'srcset'), tsrcset: srcsetOnly(img, [200, 440]),
+        items.push({ type: 'img', full: full, med: pickSrc(img, 740), srcset: imgAttr(img, 'srcset'), tsrcset: srcsetOnly(img, [200, 440]),
           thumb: thumbOf(img), alt: img.getAttribute('alt') || '' });
       } else if (fr) {
         var src = fr.getAttribute('src') || fr.getAttribute('data-src');
@@ -245,8 +245,13 @@
     function render(target, it) {
       target.innerHTML = '';
       if (it.type === 'img') {
-        var im = el('img', '', { src: it.full, alt: it.alt, draggable: 'false', fetchpriority: 'high', decoding: 'async' });
-        if (it.srcset) { im.setAttribute('srcset', it.srcset); im.setAttribute('sizes', '(max-width: 840px) 100vw, 640px'); }
+        // velká fotka je vždy původní velká: pro rychlý start se nejdřív ukáže střední varianta (it.med) a jakmile se načte originál, vymění se za něj
+        var im = el('img', '', { src: it.med || it.full, alt: it.alt, draggable: 'false', fetchpriority: 'high', decoding: 'async' });
+        if (it.med && it.med !== it.full) {
+          var big = new Image();
+          big.onload = function () { if (im.isConnected) im.src = it.full; };
+          big.src = it.full;
+        }
         target.appendChild(im);
       } else {
         var f = el('iframe', 'ng-video', { src: it.embed, allowfullscreen: '', referrerpolicy: 'strict-origin-when-cross-origin' });
@@ -309,7 +314,6 @@
         f.setAttribute('data-i', i);
         if (it.type === 'img') {
           var li = el('img', '', { loading: 'lazy', src: it.full, alt: it.alt });
-          if (it.srcset) { li.setAttribute('srcset', it.srcset); li.setAttribute('sizes', '(min-width: 1200px) 1200px, 100vw'); }
           f.appendChild(li);
           // klepnutí / klik přepne zvětšení (na mobilu jde navíc štípnutím)
           f.addEventListener('click', function () { f.classList.toggle('zoom'); });
@@ -564,13 +568,8 @@
       var a = el('a', 'ng-soc-i', { href: '#', 'data-url': x[2] });
       var tile = el('span', 'ng-soc-tile ng-soc-' + x[0]);
       if (x[0] === 'vip') {
-        // logo VIP BIKES: černý zaoblený čtverec, bílé „VIP“ a „BIKES“ roztažené na šířku (překresleno jako SVG podle dodaného loga)
-        tile.innerHTML = '<svg class="ng-soc-vip-logo" viewBox="0 0 100 100" aria-hidden="true">' +
-          '<rect width="100" height="100" rx="17" fill="#000"/>' +
-          '<g fill="#fff" font-family="Impact, \'Arial Narrow\', \'Helvetica Neue\', Arial, sans-serif" font-weight="900">' +
-          '<text x="9" y="60" font-size="58" textLength="82" lengthAdjust="spacingAndGlyphs">VIP</text>' +
-          '<text x="9" y="90" font-size="30" textLength="82" lengthAdjust="spacingAndGlyphs">BIKES</text></g></svg>' +
-          '<span class="ng-soc-badge"></span>';
+        // logo VIP BIKES je obrázek new/vip-bikes.png (nastavuje se v CSS jako pozadí dlaždice)
+        tile.innerHTML = '<span class="ng-soc-badge"></span>';
       } else {
         tile.innerHTML = '<svg viewBox="0 0 16 16" aria-hidden="true">' + x[3] + '</svg><span class="ng-soc-badge"></span>';
       }

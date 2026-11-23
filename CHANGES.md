@@ -52,7 +52,7 @@ Vše platí na počítači i na mobilu, pokud není uvedeno jinak. Původní des
 
 ### Piktogramy
 - **Nad nadpisem Popis** (pod výčtem předností) malý jemně šedý blok „odjinud“ (pozadí #f6f6f6) s nadpisem „Novinky, návody, akce a tipy“ drobným šedým písmem na středu a pěti ikonami: **VIP Bikes** (popisek „Author’s Heroes“), **Facebook**, **Instagram**, **YouTube**, **Newsletter** (`.ng-soc`, `buildSocial()`).
-- Aplikační ikony 28 px se zaobleným čtvercem a barevným přechodem; VIP Bikes je logo VIP BIKES (černý zaoblený čtverec s bílým „VIP“ a „BIKES“, zatím překreslené jako SVG; originální soubor loga lze doplnit do `new/`), každá ikona má v rohu malý červený ovál Author (`new/author_oval.png`, vyříznutý z původního loga bez nápisu).
+- Aplikační ikony 28 px se zaobleným čtvercem a barevným přechodem; VIP Bikes je dodané logo VIP BIKES (obrázek `new/vip-bikes.png`, 256 × 256 px, průhledné rohy), každá ikona má v rohu malý červený ovál Author (`new/author_oval.png`, vyříznutý z původního loga bez nápisu).
 - Odkazy v testovací kopii vedou na `#`, skutečné cíle jsou v atributu `data-url`: VIP Bikes https://hero.author.eu/, https://www.facebook.com/Author.cz/?locale=cs_CZ, https://www.instagram.com/authorbicycles/, https://www.youtube.com/@authoradmin; **adresa Newsletteru zatím není doplněná** (`data-url` je prázdné). Při nasazení dát `data-url` do `href`.
 
 ### Ostatní modely
@@ -86,7 +86,7 @@ Vše platí na počítači i na mobilu, pokud není uvedeno jinak. Původní des
 
 - Nasadit: `new/new.css` + `new/new.js` a 2 řádky do `<head>` šablony. Přepínač (`buildSwitch()` v JS, `.ds*` v CSS) lze smazat; pak natrvalo nastavit `data-design="new"` na `<html>` nebo pravidla odprefixovat.
 - JS spoléhá na tyto třídy/ID původní šablony: `.lyp-gal`, `#sldKartaID` (slidy s `<img>` / `<iframe>`), `.lypi-perex`. Při změně šablony je potřeba upravit selektory v `collectItems()` a `buildCollapse()`.
-- Galerie se staví z fotek původního slideru hned při `DOMContentLoaded` (ne až po načtení všech obrázků, `load` je jen pojistka). První velká fotka se stahuje přednostně (`fetchpriority="high"`) a v rozumné velikosti podle okna (`srcset` + `sizes`, ne 1600px originál); náhledy (nejmenší varianty 200/440 px) se začnou stahovat až po jejím načtení (nejpozději za 2,5 s), fotky pro lightbox až po jeho otevření. Do doby sestavení drží místo šedá plocha 4:3. Žádná data navíc.
+- Galerie se staví z fotek původního slideru hned při `DOMContentLoaded` (ne až po načtení všech obrázků, `load` je jen pojistka). První velká fotka se stahuje přednostně (`fetchpriority="high"`): pro rychlý start se na okamžik ukáže střední varianta (740 px) a jakmile se načte **původní velká fotka** (1600 px), vymění se za ni, takže velká fotka je vždy původní, ne zvětšený náhled; náhledy (nejmenší varianty 200/440 px) se začnou stahovat až po jejím načtení (nejpozději za 2,5 s), fotky pro lightbox až po jeho otevření. Do doby sestavení drží místo šedá plocha 4:3. Žádná data navíc.
 - Tlačítka WEB a MAPA v seznamu dealerů (`buildDealers()`) berou adresu z atributu `data-url` u odkazů koupit/objednat a mapa. V testovací kopii je tam původní adresa (`href` je `#`), v ostré verzi stačí číst `href` (v JS změnit `getAttribute('data-url')` na `getAttribute('href')`).
 - Ikony počtu pod galerií: `new/ico_image.svg` (nová, Bootstrap Icons) a `../system/img/ico_camera.svg` (původní) – při nasazení upravit cestu v `new.css` podle umístění souborů.
 - Náhled videa se tahá z `img.youtube.com` (jediný externí obrázek).
@@ -111,4 +111,4 @@ Slouží jen k vyzkoušení stránky, v ostré verzi být nemají.
 - **Stránka online:** https://zajic70.github.io/a27-detail/ (GitHub Pages, veřejný repozitář https://github.com/Zajic70/a27-detail, větev `main`). Slouží jen k prohlédnutí a vyzkoušení na mobilu; má `noindex,nofollow`, aby ji vyhledávače nebraly jako druhý web.
 - **Co je v repozitáři:** `index.html`, `system/`, `data/`, `new/` a `CHANGES.md`. Složka `_orig/`, `_navrh/` a `start.bat` zůstávají jen lokálně (`.gitignore`). `.nojekyll` vypíná zpracování Jekyllem, `.gitattributes` nechává soubory beze změny konců řádků.
 - **Aktualizace:** po každé úpravě se nahrává nová verze (commit a push), stránka se sama přenasadí do cca minuty. Při pochybnosti obnovit Ctrl+F5, prohlížeč si pamatuje starý skript a styly.
-- **Co v repozitáři nechat při nasazení u Authoru:** jen `new/` (`new.css`, `new.js`, `author_oval.png`, `ico_image.svg`) a 2 řádky v `<head>`; ostatní soubory jsou jen kopie původního webu.
+- **Co v repozitáři nechat při nasazení u Authoru:** jen `new/` (`new.css`, `new.js`, `author_oval.png`, `ico_image.svg`, `vip-bikes.png`) a 2 řádky v `<head>`; ostatní soubory jsou jen kopie původního webu.

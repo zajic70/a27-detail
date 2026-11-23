@@ -552,3 +552,6 @@ html[data-design="new"] .ng-soc-tile .ng-soc-vip-logo { display: block; width: 2
 @media only screen and (min-width: 841px) {
   html[data-design="new"] .pkarta .k-navi #kb-dostupnost.kb-list table tr.dstp-prodejce[style*="table-row"] { display: flex !important; }
 }
+
+/* ---------- v1.41: ikona VIP BIKES je dodaný obrázek new/vip-bikes.png (256 × 256 px, průhledné rohy) ---------- */
+html[data-design="new"] .ng-soc-vip { background: transparent url('vip-bikes.png') center / 100% 100% no-repeat; box-shadow: none; }
