@@ -495,7 +495,7 @@
   /* ---------- piktogramy (Hero, Facebook, Instagram, YouTube) mezi štítky a Ostatními modely ----------
      Odkazy vedou na "#" (testovací kopie), cílové adresy jsou v data-url pro programátora. */
   var SOC = [
-    ['vip', 'Author’s Hero’s', 'https://hero.author.eu/', ''],
+    ['vip', 'Author’s Heroes', 'https://hero.author.eu/', ''],
     ['fb', 'Facebook', 'https://www.facebook.com/Author.cz/?locale=cs_CZ',
       '<path d="M9.2 16V9.1h2.3l.35-2.7H9.2V4.7c0-.78.22-1.31 1.34-1.31h1.43V.98A19 19 0 0 0 9.88.87C7.81.87 6.4 2.13 6.4 4.45v1.95H4.07v2.7H6.4V16z"/>'],
     ['ig', 'Instagram', 'https://www.instagram.com/authorbicycles/',
