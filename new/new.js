@@ -91,16 +91,29 @@
   /* ---------- přepínač ---------- */
   function buildSwitch() {
     var box = el('div', 'ds', { role: 'group', 'aria-label': 'Přepínač designu' });
+    // slovo „Design“ je tlačítko, které zbytek přepínače rozbalí / sbalí (slovo samo zůstává vždy vidět)
     box.innerHTML =
-      '<span class="ds-label">Design</span>' +
-      '<button type="button" class="ds-btn" data-mode="old">Původní</button>' +
-      '<button type="button" class="ds-btn" data-mode="new">Nový</button>' +
-      '<span class="ds-sep"></span>' +
-      '<span class="ds-label">Zobrazení</span>' +
-      '<button type="button" class="ds-btn" data-view="desktop">Počítač</button>' +
-      '<button type="button" class="ds-btn" data-view="mobile">Mobil</button>' +
-      '<span class="ds-sep"></span>' +
-      '<button type="button" class="ds-btn ds-info" aria-haspopup="dialog">Co je nového</button>';
+      '<button type="button" class="ds-toggle" aria-expanded="false">Design<i class="ds-chev" aria-hidden="true"></i></button>' +
+      '<span class="ds-body">' +
+        '<button type="button" class="ds-btn" data-mode="old">Původní</button>' +
+        '<button type="button" class="ds-btn" data-mode="new">Nový</button>' +
+        '<span class="ds-sep"></span>' +
+        '<span class="ds-label">Zobrazení</span>' +
+        '<button type="button" class="ds-btn" data-view="desktop">Počítač</button>' +
+        '<button type="button" class="ds-btn" data-view="mobile">Mobil</button>' +
+        '<span class="ds-sep"></span>' +
+        '<button type="button" class="ds-btn ds-info" aria-haspopup="dialog">Co je nového</button>' +
+      '</span>';
+    var tg = box.querySelector('.ds-toggle');
+    function setOpen(open) {
+      box.classList.toggle('is-open', open);
+      tg.setAttribute('aria-expanded', open ? 'true' : 'false');
+      try { localStorage.setItem('a24-ds-open', open ? '1' : '0'); } catch (e) {}
+    }
+    var wasOpen = false;
+    try { wasOpen = localStorage.getItem('a24-ds-open') === '1'; } catch (e) {}
+    setOpen(wasOpen);
+    tg.addEventListener('click', function () { setOpen(!box.classList.contains('is-open')); });
     box.addEventListener('click', function (e) {
       var b = e.target.closest('.ds-btn');
       if (!b) return;

@@ -531,3 +531,12 @@ html[data-design="new"] body.ng-sticky-on .wbbTopPage { bottom: 5px; right: 16px
   html[data-design="new"] #kb-dostupnost tr.dstp-prodejce > td:nth-child(5),
   html[data-design="new"] #kb-dostupnost tr.dstp-prodejce > td:nth-child(6) { white-space: nowrap; }
 }
+
+/* ---------- v1.38: přepínač – slovo Design je tlačítko pro rozbalení / sbalení, zbytek (Původní/Nový, Zobrazení, Co je nového) je v rozbalitelné části ---------- */
+.ds-toggle { display: inline-flex; align-items: center; gap: 6px; padding: 8px 12px 8px 10px; border: 0; background: transparent; cursor: pointer; font: inherit;
+  color: #666; text-transform: uppercase; font-size: 11px; letter-spacing: .05em; border-radius: 999px; }
+.ds-toggle:hover { color: #e60000; }
+.ds-chev { display: inline-block; width: 6px; height: 6px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(-45deg); transition: transform .15s; }
+.ds.is-open .ds-chev { transform: rotate(135deg); }
+.ds-body { display: none; align-items: center; gap: 2px; }
+.ds.is-open .ds-body { display: inline-flex; }
