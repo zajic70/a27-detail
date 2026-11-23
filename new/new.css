@@ -572,3 +572,6 @@ html[data-design="new"] #kb-dostupnost tr.dstp-varianta { background-color: #f0f
 /* kontakt (telefon, e-mail) dealera s proklikem na web zůstává schovaný (nesmí ho přebít velikost písma výše) */
 html[data-design="new"] #kb-dostupnost table tr.dstp-prodejce:has(.btn-dstp-objednat) > td:nth-child(6) { display: none !important; }
 html[data-design="new"] #kb-dostupnost tr.dstp-varianta > td { background: transparent !important; border: 0 !important; }
+
+/* ---------- v1.45: název firmy má stejné písmo jako tlačítka (skutečné tučné fontTeuB místo uměle ztučněného fontTeuL), ať není opticky větší ---------- */
+html[data-design="new"] #kb-dostupnost tr.dstp-prodejce > td:nth-child(2) b:not(.ng-dl-other-name) { font-family: fontTeuB, Arial, Verdana, sans-serif; font-weight: 400; font-size: 14px !important; }
