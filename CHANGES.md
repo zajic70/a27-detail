@@ -53,6 +53,13 @@ Diff proti originálu: `diff _orig/index_lokalni_kopie.html index.html` (2 řád
 - Zůstávají externí skripty původního webu (Smartsupp chat, cookie lišta, GDPR) – lokálně se načítají živě.
 - DEV blok na konci `new/new.css` (skrytí cookie lišty a dialogu chatu, zůstává jen kolečko) je jen pro testování, při nasazení smazat.
 
+## Hostování na GitHubu
+
+- **Stránka online:** https://zajic70.github.io/a27-detail/ (GitHub Pages, veřejný repozitář https://github.com/Zajic70/a27-detail, větev `main`). Slouží jen k prohlédnutí a vyzkoušení na mobilu; má `noindex,nofollow`, aby ji vyhledávače nebraly jako druhý web.
+- **Co je v repozitáři:** `index.html`, `system/`, `data/`, `new/` a `CHANGES.md`. Složka `_orig/`, `_navrh/` a `start.bat` zůstávají jen lokálně (`.gitignore`). `.nojekyll` vypíná zpracování Jekyllem, `.gitattributes` nechává soubory beze změny konců řádků.
+- **Aktualizace:** po každé úpravě se nahrává nová verze (commit a push), stránka se sama přenasadí do cca minuty. Při pochybnosti obnovit Ctrl+F5, prohlížeč si pamatuje starý skript a styly.
+- **Co v repozitáři nechat při nasazení u Authoru:** jen `new/` (`new.css`, `new.js`, `author_oval.png`, `ico_image.svg`) a 2 řádky v `<head>`; ostatní soubory jsou jen kopie původního webu.
+
 ## Spuštění
 
 Stránku **neotvírat dvojklikem (file://)**: ikony jsou v CSS přes `mask-image` a Chrome je z file:// blokuje (chybí ikonky, galerie je prázdná). Spustit `start.bat` (lokální server na http://localhost:8080/index.html). Online: https://zajic70.github.io/a27-detail/
