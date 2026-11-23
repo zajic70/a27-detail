@@ -376,3 +376,8 @@ html[data-design="new"] .k-cena.lypi-cena > div s a.btnKT { left: auto; right: c
 
 /* ---------- v1.21: text „Barevné varianty“ nad barevnými čtverečky se v novém designu nezobrazuje ---------- */
 html[data-design="new"] .lypi-barva > s { display: none; }
+
+/* ---------- v1.22: sbalený popis má větší písmo (celý text se čte v modálním okně) ---------- */
+html[data-design="new"] .ng-perex-wrap .lypi-perex.is-collapsed { font-size: 1.05rem; line-height: 1.5rem; max-height: 10.2rem; }
+html[data-design="new"] .ng-perex-wrap .lypi-perex.is-collapsed strong,
+html[data-design="new"] .ng-perex-wrap .lypi-perex.is-collapsed b { font-size: 1rem; line-height: 1.5rem; }
