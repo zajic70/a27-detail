@@ -40,7 +40,7 @@ Diff proti originálu: `diff _orig/index_lokalni_kopie.html index.html` (2 řád
 - **Barevné varianty** (`.lypi-barva`): bez popisku „Barevné varianty“, zůstávají jen barevné čtverečky (jen CSS).
 - **Kde koupit – seznam dealerů** (`#kb-dostupnost`, jen CSS): 
   - u dealera s proklikem na web se ukáže jen **město, web (tlačítko) a mapa**; telefon a e-mail jsou schované, zájemce je najde na webu dealera (stejný princip jako na ketaj.cz). Dealeři bez webu mají kontakt dál. Hlavička sloupce „Kontakt na prodejce“ zůstává jen proto, že takový dealer (Pavel Brabec) v seznamu je. Na mobilu se kontakt schová úplně.
-  - zelený košík „objednat“ ve sloupci Dostupnost se u dealera s tlačítkem „objednat teď“ nezobrazuje (vedl na totéž, byla tam dvě stejná tlačítka); zůstává jedno tlačítko.
+  - informace s košíkem, „skladem“ a „objednat“ ve sloupci Dostupnost se u dealerů nezobrazuje (není důležitá a vedla na totéž co tlačítko, byla tam dvě stejná tlačítka); zůstává jen jedno barevné tlačítko. Sloupec Dostupnost má dál obsah jen u souhrnných řádků („11 prodejen“, „Na ostatních prodejnách“).
   - všechna nákupní tlačítka v seznamu (objednat teď, koupit teď) mají jednotný vzhled jako hlavní KOUPIT TEĎ: červená, při najetí tmavě šedá. Dřív byla „objednat teď“ oranžová a „koupit teď“ červená.
 - **Varianty na mobilu** (`#kb-varianty`): ikonka barev se už nezlamuje (v původním mobilním rozložení se dva barevné proužky smrštily na 3 px). Řádek je zalomený: nahoře ikonka a název varianty, pod nimi velikosti s kódy (jen CSS, do 840 px).
 - **Cena** (`.k-cena`): celá sekce je zarovnaná vpravo. Nahoře původní cena, pod ní tlačítko KOUPIT TEĎ a těsně za ním (úplně vpravo) šedé pole s akční cenou. Jen CSS, vzhled prvků zůstává původní.

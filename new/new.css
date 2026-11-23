@@ -398,8 +398,8 @@ html[data-design="new"] .ng-perex-wrap .lypi-perex.is-collapsed b { font-size: 1
 html[data-design="new"] #kb-dostupnost table tr.dstp-prodejce:has(.btn-dstp-objednat) > td:nth-child(6) { font-size: 0; padding: 0; width: 0; }
 /* hlavička sloupce Kontakt na prodejce zmizí jen tehdy, když ho nemá schovaný žádný dealer v tabulce */
 html[data-design="new"] #kb-dostupnost table:not(:has(tr.dstp-prodejce:not(:has(.btn-dstp-objednat)))) tr:first-child > th:nth-child(7) { font-size: 0; padding: 0; width: 0; }
-/* b) zelený košík „objednat“ ve sloupci Dostupnost je u dealera s tlačítkem „objednat teď“ zbytečný (vede na totéž), jedno tlačítko stačí */
-html[data-design="new"] #kb-dostupnost table tr.dstp-prodejce:has(.btn-dstp-objednat) > td.kosik > a { display: none; }
+/* b) informace s košíkem, „skladem“ a „objednat“ ve sloupci Dostupnost není důležitá (vede na totéž co tlačítko), stačí jedno barevné tlačítko */
+html[data-design="new"] #kb-dostupnost table tr.dstp-prodejce > td.kosik > a { display: none; }
 /* c) všechna nákupní tlačítka (objednat teď, koupit teď) mají stejný vzhled jako hlavní KOUPIT TEĎ */
 html[data-design="new"] .pkarta .k-navi #kb-dostupnost.kb-list a.btn-dstp-koupit,
 html[data-design="new"] .pkarta .k-navi #kb-dostupnost.kb-list a.btn-dstp-objednat { background-color: var(--clr-button-red); color: #fff; }

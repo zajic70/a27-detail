@@ -116,7 +116,7 @@
     ['Počet fotek a videí', 'Pod náhledy (např. 11 fotek, 1 video). Ikona videa se přesunula z pravého sloupce sem.'],
     ['Popis', 'Dlouhý text je sbalený a celý se otevře přes „Více…“ v modálním okně s větším písmem a hlavními přednostmi (stejné řešení jako na Alze).'],
     ['Nadpisy', 'Popis a Ostatní modely mají šedý pruh s oranžovým proužkem vlevo.'],
-    ['Kde koupit', 'U dealera s webem jen město, web a mapa (telefon a e-mail jsou schované). Jedno tlačítko místo dvou a jednotný červený vzhled všech nákupních tlačítek.'],
+    ['Kde koupit', 'U dealera s webem jen město, web a mapa (telefon a e-mail jsou schované). Bez informace o košíku a skladu, stačí jedno barevné tlačítko, jednotný červený vzhled všech nákupních tlačítek.'],
     ['Barevné varianty','Bez popisku nad barevnými čtverečky.'],
     ['Cena','Sekce je vpravo: nahoře původní cena, pod ní tlačítko KOUPIT TEĎ a za ním akční cena úplně vpravo.'],
     ['Porovnání a výbava','Tlačítka jsou hned pod cenou, ve stylu záložek specifikace.'],
