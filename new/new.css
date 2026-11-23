@@ -359,3 +359,7 @@ html[data-design="new"] .ng-soc-badge { position: absolute; right: -4px; bottom:
 
 /* ---------- v1.18: než se postaví galerie, drží místo šedá plocha 4:3 (stránka neposkočí) ---------- */
 html[data-design="new"] .lyp-gal:not(:has(#ng)) { aspect-ratio: 4 / 3; background: #f4f4f4; }
+
+/* ---------- v1.19: než se načtou náhledy a první fotka, drží místo šedá plocha ---------- */
+.ng-th { background: #eee; }
+.ng-view { background: #f4f4f4; }

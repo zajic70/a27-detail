@@ -23,6 +23,8 @@ Zdroj: https://cz.author.eu/sector-29-2026-ua42968602 (stáhnuto 2026-11-17).
    <link href="new/new.css" rel="stylesheet" type="text/css" />
    <script src="new/new.js"></script>
    ```
+5. **Přidáno `loading="lazy"`** k 22 obrázkům původní galerie (velké fotky a náhledy ve slideru). V novém designu je původní galerie skrytá, takže se její fotky vůbec nestahují (dřív se stáhlo 39 obrázků, 8,3 MB; teď 19 obrázků, 1,9 MB). V původním designu se fotky dotahují podle potřeby.
+
 Žádná jiná úprava HTML značek. Původní galerie (Slick) zůstává v DOM, v novém designu je jen skrytá.
 
 Diff proti originálu: `diff _orig/index_lokalni_kopie.html index.html` (2 řádky nového designu + dočasné úpravy popsané v sekci Dočasné prvky). Složka `_orig/` je jen lokálně, do repozitáře se nenahrává.
@@ -43,7 +45,7 @@ Diff proti originálu: `diff _orig/index_lokalni_kopie.html index.html` (2 řád
 
 - Nasadit: `new/new.css` + `new/new.js` a 2 řádky do `<head>` šablony. Přepínač (`buildSwitch()` v JS, `.ds*` v CSS) lze smazat; pak natrvalo nastavit `data-design="new"` na `<html>` nebo pravidla odprefixovat.
 - JS spoléhá na tyto třídy/ID původní šablony: `.lyp-gal`, `#sldKartaID` (slidy s `<img>` / `<iframe>`), `.lypi-perex`. Při změně šablony je potřeba upravit selektory v `collectItems()` a `buildCollapse()`.
-- Galerie se staví z fotek původního slideru hned při `DOMContentLoaded` (ne až po načtení všech obrázků, `load` je jen pojistka), první velká fotka má `fetchpriority="high"` a do doby sestavení drží místo šedá plocha 4:3. Žádná data navíc.
+- Galerie se staví z fotek původního slideru hned při `DOMContentLoaded` (ne až po načtení všech obrázků, `load` je jen pojistka). První velká fotka se stahuje přednostně (`fetchpriority="high"`) a v rozumné velikosti podle okna (`srcset` + `sizes`, ne 1600px originál); náhledy (nejmenší varianty 200/440 px) se začnou stahovat až po jejím načtení (nejpozději za 2,5 s), fotky pro lightbox až po jeho otevření. Do doby sestavení drží místo šedá plocha 4:3. Žádná data navíc.
 - Ikony počtu pod galerií: `new/ico_image.svg` (nová, Bootstrap Icons) a `../system/img/ico_camera.svg` (původní) – při nasazení upravit cestu v `new.css` podle umístění souborů.
 - Náhled videa se tahá z `img.youtube.com` (jediný externí obrázek).
 - Zůstávají externí skripty původního webu (Smartsupp chat, cookie lišta, GDPR) – lokálně se načítají živě.

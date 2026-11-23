@@ -35,9 +35,11 @@
     for (var i = 0; i < btns.length; i++) {
       btns[i].setAttribute('aria-pressed', btns[i].getAttribute('data-mode') === m ? 'true' : 'false');
     }
-    // Slick v původní galerii se počítá podle šířky – po zobrazení znovu přepočítat.
+    // Slick v původní galerii se počítá podle šířky – po zobrazení (a po dotažení lazy fotek) znovu přepočítat.
     if (window.jQuery) {
-      try { window.jQuery('#sldKartaID').slick('setPosition'); } catch (e) {}
+      var pos = function () { try { window.jQuery('#sldKartaID').slick('setPosition'); } catch (e) {} };
+      pos();
+      if (m === 'old') setTimeout(pos, 800);
     }
     // v mobilním náhledu načíst rám znovu se zvoleným designem
     var f = document.querySelector('.dsm iframe');
@@ -134,15 +136,25 @@
     m.hidden = false;
   }
 
+  /* ---------- obrázky původního slideru: atributy čteme přímo (v HTML mají loading="lazy", takže se ve skrytém slideru nestahují) ---------- */
+  function imgAttr(img, a) { return img.getAttribute(a) || ''; }
+  // z původního srcset nechá jen vybrané šířky (např. [200, 440] pro náhledy)
+  function srcsetOnly(img, widths) {
+    return imgAttr(img, 'srcset').split(',').map(function (x) { return x.trim(); }).filter(function (x) {
+      var w = parseInt((x.split(/\s+/)[1] || ''), 10);
+      return widths.indexOf(w) !== -1;
+    }).join(', ');
+  }
+
   /* ---------- 2) galerie ---------- */
   function thumbOf(img) {
-    var ss = img.getAttribute('srcset') || '';
+    var ss = imgAttr(img, 'srcset');
     var best = null;
     ss.split(',').forEach(function (part) {
       var p = part.trim().split(/\s+/);
       if (p.length === 2 && p[1] === '440w') best = p[0];
     });
-    return best || img.getAttribute('src');
+    return best || imgAttr(img, 'src');
   }
   function ytId(src) {
     var m = /embed\/([\w-]+)/.exec(src || '');
@@ -157,10 +169,11 @@
       var img = slides[i].querySelector('img');
       var fr = slides[i].querySelector('iframe');
       if (img) {
-        var full = img.getAttribute('src');
+        var full = imgAttr(img, 'src');
         if (seen[full]) continue;
         seen[full] = 1;
-        items.push({ type: 'img', full: full, thumb: thumbOf(img), alt: img.getAttribute('alt') || '' });
+        items.push({ type: 'img', full: full, srcset: imgAttr(img, 'srcset'), tsrcset: srcsetOnly(img, [200, 440]),
+          thumb: thumbOf(img), alt: img.getAttribute('alt') || '' });
       } else if (fr) {
         var src = fr.getAttribute('src') || fr.getAttribute('data-src');
         var id = ytId(src);
@@ -202,7 +215,10 @@
 
     items.forEach(function (it, i) {
       var b = el('button', 'ng-th' + (it.type === 'video' ? ' ng-th-video' : ''), { type: 'button', role: 'tab', 'aria-label': it.alt });
-      b.innerHTML = '<img loading="lazy" src="' + it.thumb + '" alt="">' + (it.type === 'video' ? '<i class="ng-play"></i>' : '');
+      var ti = el('img', '', { alt: '', decoding: 'async' });
+      ti._src = it.thumb; ti._srcset = it.tsrcset;      // zdroj se nastaví až v loadRest()
+      b.appendChild(ti);
+      if (it.type === 'video') b.appendChild(el('i', 'ng-play'));
       b.addEventListener('click', function () { show(i); });
       strip.appendChild(b);
       thumbs.push(b);
@@ -212,6 +228,7 @@
       target.innerHTML = '';
       if (it.type === 'img') {
         var im = el('img', '', { src: it.full, alt: it.alt, draggable: 'false', fetchpriority: 'high', decoding: 'async' });
+        if (it.srcset) { im.setAttribute('srcset', it.srcset); im.setAttribute('sizes', '(max-width: 840px) 100vw, 640px'); }
         target.appendChild(im);
       } else {
         var f = el('iframe', 'ng-video', { src: it.embed, allowfullscreen: '', referrerpolicy: 'strict-origin-when-cross-origin' });
@@ -273,7 +290,9 @@
         var f = el('figure', 'ng-lb-fig' + (it.type === 'video' ? ' is-video' : ''));
         f.setAttribute('data-i', i);
         if (it.type === 'img') {
-          f.innerHTML = '<img loading="lazy" src="' + it.full + '" alt="' + it.alt + '">';
+          var li = el('img', '', { loading: 'lazy', src: it.full, alt: it.alt });
+          if (it.srcset) { li.setAttribute('srcset', it.srcset); li.setAttribute('sizes', '(min-width: 1200px) 1200px, 100vw'); }
+          f.appendChild(li);
           // klepnutí / klik přepne zvětšení (na mobilu jde navíc štípnutím)
           f.addEventListener('click', function () { f.classList.toggle('zoom'); });
         } else {
@@ -338,17 +357,36 @@
     }, true);
 
     show(0);
+
+    // zbytek (náhledy) se začne stahovat, až je hotová první velká fotka (nebo za 2,5 s)
+    var restLoaded = false;
+    function loadRest() {
+      if (restLoaded) return;
+      restLoaded = true;
+      [].forEach.call(strip.querySelectorAll('img'), function (im) {
+        if (im._srcset) { im.setAttribute('srcset', im._srcset); im.setAttribute('sizes', '110px'); }
+        if (im._src) im.setAttribute('src', im._src);
+      });
+    }
+    var firstImg = view.querySelector('img');
+    if (firstImg && !firstImg.complete) {
+      firstImg.addEventListener('load', loadRest);
+      firstImg.addEventListener('error', loadRest);
+      setTimeout(loadRest, 2500);
+    } else {
+      loadRest();
+    }
     edges();
   }
 
   /* ---------- 3) sbalený popis + modální okno s podrobnostmi ---------- */
   function pickSrc(img, w) {
     var best = null;
-    (img.getAttribute('srcset') || '').split(',').forEach(function (part) {
+    imgAttr(img, 'srcset').split(',').forEach(function (part) {
       var p = part.trim().split(/\s+/);
       if (p.length === 2 && p[1] === w + 'w') best = p[0];
     });
-    return best || img.getAttribute('src');
+    return best || imgAttr(img, 'src');
   }
 
   function buildModal(perex) {
