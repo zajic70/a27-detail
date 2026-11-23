@@ -400,11 +400,8 @@ html[data-design="new"] #kb-dostupnost table tr.dstp-prodejce:has(.btn-dstp-obje
 html[data-design="new"] #kb-dostupnost table:not(:has(tr.dstp-prodejce:not(:has(.btn-dstp-objednat)))) tr:first-child > th:nth-child(7) { font-size: 0; padding: 0; width: 0; }
 /* b) informace s košíkem, „skladem“ a „objednat“ ve sloupci Dostupnost není důležitá (vede na totéž co tlačítko), stačí jedno barevné tlačítko */
 html[data-design="new"] .pkarta .k-navi #kb-dostupnost.kb-list table tr.dstp-prodejce > td.kosik > a { display: none; }
-/* c) všechna nákupní tlačítka (objednat teď, koupit teď) mají stejný vzhled jako hlavní KOUPIT TEĎ */
-html[data-design="new"] .pkarta .k-navi #kb-dostupnost.kb-list a.btn-dstp-koupit,
-html[data-design="new"] .pkarta .k-navi #kb-dostupnost.kb-list a.btn-dstp-objednat { background-color: var(--clr-button-red); color: #fff; }
-html[data-design="new"] .pkarta .k-navi #kb-dostupnost.kb-list a.btn-dstp-koupit:hover,
-html[data-design="new"] .pkarta .k-navi #kb-dostupnost.kb-list a.btn-dstp-objednat:hover { background-color: #393939; }
+/* c) barvy tlačítek zůstávají původní: oranžové „objednat teď“, červené „koupit teď“; obě jsou ale stejně široká */
+html[data-design="new"] .pkarta .k-navi #kb-dostupnost.kb-list a.btn-dstp-koupit { min-width: 118px; padding: 0 8px; text-align: center; box-sizing: border-box; }
 /* na mobilu jsou buňky pod sebou, kontakt dealera s webem se schová úplně */
 @media only screen and (max-width: 840px) {
   html[data-design="new"] #kb-dostupnost table tr.dstp-prodejce:has(.btn-dstp-objednat) > td:nth-child(6) { display: none; }
@@ -422,3 +419,21 @@ html[data-design="new"] #kb-dostupnost tr.ng-dl-has-map a.dstp-mapa { display: n
   html[data-design="new"] .ng-dl-btns { flex-wrap: wrap; }
   html[data-design="new"] #kb-dostupnost tr.ng-dl-has-map > td:last-child { display: none; }
 }
+
+/* ---------- v1.26: Kde koupit – údaje vlevo, WEB a MAPA stejně široké, odkaz „dealeři“ (dealerská síť) jako tlačítko ---------- */
+html[data-design="new"] .ng-dl-btn { min-width: 64px; padding: 0 8px; text-align: center; box-sizing: border-box; }
+@media only screen and (min-width: 841px) {
+  /* tabulka jen tak široká, jak je potřeba, a všechny údaje i hlavičky zarovnané vlevo */
+  html[data-design="new"] #kb-dostupnost table { width: auto; }
+  html[data-design="new"] #kb-dostupnost table th,
+  html[data-design="new"] #kb-dostupnost table td,
+  html[data-design="new"] #kb-dostupnost table th.c,
+  html[data-design="new"] #kb-dostupnost table td.c { text-align: left; }
+  html[data-design="new"] #kb-dostupnost table th,
+  html[data-design="new"] #kb-dostupnost table td { padding-right: 18px; }
+}
+/* odkaz „dealeři“ v řádku Na ostatních prodejnách vypadá jako ostatní šedá tlačítka */
+html[data-design="new"] #kb-dostupnost a.dstp-mapa[target^="ndealmapa"] { display: inline-block; height: 22px; padding: 0 15px; background-color: #f0f0f0; color: #444;
+  font: 13px/24px fontTeuB, Arial, Verdana, sans-serif; text-transform: uppercase; text-decoration: none; white-space: nowrap; transition: background-color .1s, color .1s; }
+html[data-design="new"] #kb-dostupnost a.dstp-mapa[target^="ndealmapa"]:hover { background-color: #393939; color: #fff; }
+html[data-design="new"] #kb-dostupnost a.dstp-mapa[target^="ndealmapa"] s { display: none; }
