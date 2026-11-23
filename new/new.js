@@ -516,7 +516,7 @@
       var a = el('a', 'ng-soc-i', { href: '#', 'data-url': x[2] });
       var tile = el('span', 'ng-soc-tile ng-soc-' + x[0]);
       if (x[0] === 'vip') {
-        tile.innerHTML = '<span class="ng-soc-vip-t"><b>VIP</b>BIKES</span><span class="ng-soc-badge"></span>';
+        tile.innerHTML = '<span class="ng-soc-vip-t"><b>VIP</b><svg class="ng-soc-bike" viewBox="0 0 24 14" aria-hidden="true"><circle cx="5" cy="9.5" r="3.8"/><circle cx="19" cy="9.5" r="3.8"/><path d="M5 9.5H11.5L9.5 3.5H16.5L11.5 9.5M16.5 3.5L19 9.5M7.8 2.2H11.2M16.5 3.5L16.7 1.8H18.7"/></svg></span><span class="ng-soc-badge"></span>';
       } else {
         tile.innerHTML = '<svg viewBox="0 0 16 16" aria-hidden="true">' + x[3] + '</svg><span class="ng-soc-badge"></span>';
       }
