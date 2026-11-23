@@ -381,3 +381,14 @@ html[data-design="new"] .lypi-barva > s { display: none; }
 html[data-design="new"] .ng-perex-wrap .lypi-perex.is-collapsed { font-size: 1.05rem; line-height: 1.5rem; max-height: 10.2rem; }
 html[data-design="new"] .ng-perex-wrap .lypi-perex.is-collapsed strong,
 html[data-design="new"] .ng-perex-wrap .lypi-perex.is-collapsed b { font-size: 1rem; line-height: 1.5rem; }
+
+/* ---------- v1.23: Varianty na mobilu – ikonka barev se nezlamuje (první buňka měla jen ~20 px, proužky se smrštily na 3 px); řádek se zalomí: nahoře ikonka a název, pod nimi velikosti ---------- */
+@media only screen and (max-width: 840px) {
+  html[data-design="new"] #kb-varianty table, html[data-design="new"] #kb-varianty tbody { display: block; width: 100%; }
+  html[data-design="new"] #kb-varianty table tr { display: flex; flex-wrap: wrap; align-items: center; padding: 6px 0; }
+  html[data-design="new"] #kb-varianty table tr td { display: block; }
+  html[data-design="new"] #kb-varianty table tr td:nth-of-type(1) { flex: 0 0 64px; width: 64px; min-width: 64px; }
+  html[data-design="new"] #kb-varianty table tr td:nth-of-type(2) { flex: 1 1 0; width: auto; white-space: normal; }
+  html[data-design="new"] #kb-varianty table tr td:nth-of-type(3) { flex: 0 0 100%; padding-top: 4px; }
+  html[data-design="new"] #kb-varianty .barva-pruh i { min-width: 27px; }
+}
