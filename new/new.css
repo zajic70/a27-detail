@@ -399,7 +399,7 @@ html[data-design="new"] #kb-dostupnost table tr.dstp-prodejce:has(.btn-dstp-obje
 /* hlavička sloupce Kontakt na prodejce zmizí jen tehdy, když ho nemá schovaný žádný dealer v tabulce */
 html[data-design="new"] #kb-dostupnost table:not(:has(tr.dstp-prodejce:not(:has(.btn-dstp-objednat)))) tr:first-child > th:nth-child(7) { font-size: 0; padding: 0; width: 0; }
 /* b) informace s košíkem, „skladem“ a „objednat“ ve sloupci Dostupnost není důležitá (vede na totéž co tlačítko), stačí jedno barevné tlačítko */
-html[data-design="new"] #kb-dostupnost table tr.dstp-prodejce > td.kosik > a { display: none; }
+html[data-design="new"] .pkarta .k-navi #kb-dostupnost.kb-list table tr.dstp-prodejce > td.kosik > a { display: none; }
 /* c) všechna nákupní tlačítka (objednat teď, koupit teď) mají stejný vzhled jako hlavní KOUPIT TEĎ */
 html[data-design="new"] .pkarta .k-navi #kb-dostupnost.kb-list a.btn-dstp-koupit,
 html[data-design="new"] .pkarta .k-navi #kb-dostupnost.kb-list a.btn-dstp-objednat { background-color: var(--clr-button-red); color: #fff; }
@@ -408,4 +408,17 @@ html[data-design="new"] .pkarta .k-navi #kb-dostupnost.kb-list a.btn-dstp-objedn
 /* na mobilu jsou buňky pod sebou, kontakt dealera s webem se schová úplně */
 @media only screen and (max-width: 840px) {
   html[data-design="new"] #kb-dostupnost table tr.dstp-prodejce:has(.btn-dstp-objednat) > td:nth-child(6) { display: none; }
+}
+
+/* ---------- v1.25: Kde koupit – v řádku dealera vedle sebe KOUPIT/OBJEDNAT, WEB a MAPA (WEB a MAPA šedé) ---------- */
+.ng-dl-btn { display: none; }
+html[data-design="new"] .ng-dl-btns { display: inline-flex; flex-wrap: nowrap; align-items: center; gap: 6px; }
+html[data-design="new"] .ng-dl-btn { display: inline-block; height: 22px; padding: 0 15px; background-color: #f0f0f0; color: #444; font: 13px/24px fontTeuB, Arial, Verdana, sans-serif;
+  text-transform: uppercase; text-decoration: none; white-space: nowrap; cursor: pointer; transition: background-color .1s, color .1s; }
+html[data-design="new"] .ng-dl-btn:hover { background-color: #393939; color: #fff; text-decoration: none; }
+/* původní odkaz na mapu zůstává v řádku jen skrytý (klik mu předává tlačítko MAPA) */
+html[data-design="new"] #kb-dostupnost tr.ng-dl-has-map a.dstp-mapa { display: none; }
+@media only screen and (max-width: 840px) {
+  html[data-design="new"] .ng-dl-btns { flex-wrap: wrap; }
+  html[data-design="new"] #kb-dostupnost tr.ng-dl-has-map > td:last-child { display: none; }
 }

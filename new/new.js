@@ -116,7 +116,7 @@
     ['Počet fotek a videí', 'Pod náhledy (např. 11 fotek, 1 video). Ikona videa se přesunula z pravého sloupce sem.'],
     ['Popis', 'Dlouhý text je sbalený a celý se otevře přes „Více…“ v modálním okně s větším písmem a hlavními přednostmi (stejné řešení jako na Alze).'],
     ['Nadpisy', 'Popis a Ostatní modely mají šedý pruh s oranžovým proužkem vlevo.'],
-    ['Kde koupit', 'U dealera s webem jen město, web a mapa (telefon a e-mail jsou schované). Bez informace o košíku a skladu, stačí jedno barevné tlačítko, jednotný červený vzhled všech nákupních tlačítek.'],
+    ['Kde koupit', 'U dealera s webem jen město, web a mapa (telefon a e-mail jsou schované). Bez informace o košíku a skladu. V řádku dealera vedle sebe koupit / objednat (červené), web a mapa (šedé). Jednotný červený vzhled nákupních tlačítek.'],
     ['Barevné varianty','Bez popisku nad barevnými čtverečky.'],
     ['Cena','Sekce je vpravo: nahoře původní cena, pod ní tlačítko KOUPIT TEĎ a za ním akční cena úplně vpravo.'],
     ['Porovnání a výbava','Tlačítka jsou hned pod cenou, ve stylu záložek specifikace.'],
@@ -567,11 +567,44 @@
   }
   blockNavigation();
 
+  /* ---------- Kde koupit: v řádku dealera vedle sebe KOUPIT/OBJEDNAT, WEB a MAPA ----------
+     Tlačítko koupit/objednat je původní odkaz (jen se přesune do obalu). WEB a MAPA jsou nová tlačítka:
+     WEB vede na hlavní adresu dealera (odvozeno z adresy jeho e-shopu v data-url), MAPA předá klik původnímu odkazu na mapu
+     (ten zůstává v řádku skrytý, aby fungovalo původní otevření mapy). */
+  function buildDealers() {
+    var rows = document.querySelectorAll('#kb-dostupnost tr.dstp-prodejce');
+    [].forEach.call(rows, function (tr) {
+      if (tr.getAttribute('data-ng-done')) return;
+      var buy = tr.querySelector('a.btn-dstp-koupit');
+      var map = tr.querySelector('a.dstp-mapa');
+      if (!buy) return;
+      tr.setAttribute('data-ng-done', '1');
+      var box = el('span', 'ng-dl-btns');
+      buy.parentNode.insertBefore(box, buy);
+      box.appendChild(buy);
+      var eshop = buy.getAttribute('data-url') || '';
+      if (buy.classList.contains('btn-dstp-objednat') && /^https?:\/\//.test(eshop)) {
+        var home = eshop.replace(/^(https?:\/\/[^\/]+).*$/, '$1/');
+        var web = el('a', 'ng-dl-btn ng-dl-web', { href: '#', 'data-url': home });
+        web.textContent = 'Web';
+        box.appendChild(web);
+      }
+      if (map) {
+        var m = el('a', 'ng-dl-btn ng-dl-map', { href: '#' });
+        m.textContent = 'Mapa';
+        m.addEventListener('click', function (e) { e.preventDefault(); map.click(); });
+        box.appendChild(m);
+        tr.classList.add('ng-dl-has-map');
+      }
+    });
+  }
+
   function init() {
     if (!inFrame) buildSwitch();
     buildCollapse();
     buildYears();
     buildSocial();
+    buildDealers();
     setMode(mode);
     // galerii stavíme hned, ne až po načtení všech obrázků (load); po load se jen doplní, kdyby tehdy ještě nebyly slidy
     buildGallery();
