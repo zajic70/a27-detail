@@ -122,7 +122,8 @@
     ['Piktogramy', 'Pod popisem malý šedý blok Novinky, návody, akce a tipy s pěti malými ikonami: VIP Bikes, Facebook, Instagram, YouTube a Newsletter. Mají barevný přechod a červený ovál Author v rohu (v testovací kopii nikam nevedou).'],
     ['Ostatní modely', 'Vidět jsou 4 celé a pátý jako mizející náznak, zbytek přes „Více…“. Blok je na středu.'],
     ['Jiný modelový rok', 'Na mobilu je to rozbalovací pruh jako záložky specifikace.'],
-    ['Kde koupit', 'U dealera s webem jen město, web a mapa (telefon a e-mail jsou schované). V řádku vedle sebe objednat/koupit (původní barvy, stejně široká), web a mapa (šedé). Název firmy v šedém poli na středu, velikost červeně, „Na ostatních prodejnách“ jako tmavé tlačítko. Bez informace o košíku a skladu, bez nadpisů sloupců, údaje vlevo.'],
+    ['Kde koupit', 'U dealera s webem jen město, web a mapa (telefon a e-mail jsou schované). V řádku vedle sebe objednat/koupit (původní barvy, stejně široká), web a mapa (šedé). Název firmy v šedém poli na středu, velikost červeně, „Na ostatních prodejnách“ jako tmavé tlačítko. Bez informace o košíku a skladu, bez nadpisů sloupců, tlačítka hned za názvem pobočky. Řádek varianty: barva, červená velikost, název s objednacím číslem, až pak počet prodejen.'],
+    ['Spodní lišta', 'Po odrolování názvu se dole ukáže lišta s názvem modelu a cenou.'],
     ['Texty', 'Bez zarovnání do bloku, delší texty jsou zarovnané vlevo.'],
     ['Tlačítka', 'Rozbalovací „Více…“ se šipkou, ostatní tlačítka stejně vysoká. Cena a KOUPIT TEĎ beze změny.']
   ];
@@ -609,6 +610,63 @@
   }
   blockNavigation();
 
+  /* ---------- Kde koupit: řádek varianty = vzorek barvy, červená velikost, název s objednacím číslem, až pak počet prodejen ---------- */
+  function buildVariantRows() {
+    var h1 = document.querySelector('.lypi-h1');
+    var model = h1 ? h1.textContent.trim() : '';
+    var rows = document.querySelectorAll('#kb-dostupnost tr.dstp-varianta');
+    [].forEach.call(rows, function (tr) {
+      if (tr.getAttribute('data-ng-vr')) return;
+      var c = tr.children;
+      if (c.length < 8) return;
+      tr.setAttribute('data-ng-vr', '1');
+      var size = c[2].textContent.trim();
+      var code = c[c.length - 1].textContent.trim();
+      var clr = c[1].querySelector('.barva-pruh');
+      var clrName = clr ? (clr.getAttribute('title') || '') : '';
+      if (!clrName) {
+        var sel = document.querySelector('.lypi-barva .barva-pruh');
+        clrName = sel ? (sel.getAttribute('title') || '') : '';
+      }
+      c[0].classList.add('ng-vr-sign');
+      c[1].classList.add('ng-vr-color');
+      c[2].classList.add('ng-vr-size');
+      c[3].classList.add('ng-vr-count');
+      for (var i = 4; i < c.length; i++) c[i].classList.add('ng-vr-hide');
+      var td = el('td', 'ng-vr-name');
+      var b = el('b');
+      b.textContent = [model, clrName, size].filter(Boolean).join(' ');
+      td.appendChild(b);
+      if (code) {
+        var n = el('span', 'ng-vr-no');
+        n.textContent = 'UA#' + code;
+        td.appendChild(n);
+      }
+      tr.appendChild(td);
+    });
+  }
+
+  /* ---------- spodní lišta s modelem a cenou: objeví se, když se odroluje název nahoře (aby bylo vidět, na jaký model se člověk dívá) ---------- */
+  function buildStickyBar() {
+    var h1 = document.querySelector('.lypi-h1');
+    if (!h1 || document.querySelector('.ng-sticky')) return;
+    var price = document.querySelector('.k-cena div b');
+    var bar = el('div', 'ng-sticky', { 'aria-hidden': 'true' });
+    var n = el('span', 'ng-st-name');
+    n.textContent = h1.textContent.trim();
+    bar.appendChild(n);
+    if (price) {
+      var p = el('span', 'ng-st-price');
+      p.textContent = price.textContent.trim();
+      bar.appendChild(p);
+    }
+    document.body.appendChild(bar);
+    function upd() { bar.classList.toggle('is-on', h1.getBoundingClientRect().bottom < 0); }
+    window.addEventListener('scroll', upd, { passive: true });
+    window.addEventListener('resize', upd);
+    upd();
+  }
+
   /* ---------- Kde koupit: v řádku dealera vedle sebe KOUPIT/OBJEDNAT, WEB a MAPA ----------
      Tlačítko koupit/objednat je původní odkaz (jen se přesune do obalu). WEB a MAPA jsou nová tlačítka:
      WEB vede na hlavní adresu dealera (odvozeno z adresy jeho e-shopu v data-url), MAPA předá klik původnímu odkazu na mapu
@@ -681,7 +739,9 @@
     buildYears();
     buildSocial();
     buildDealers();
+    buildVariantRows();
     buildColorName();
+    buildStickyBar();
     setMode(mode);
     // galerii stavíme hned, ne až po načtení všech obrázků (load); po load se jen doplní, kdyby tehdy ještě nebyly slidy
     buildGallery();
