@@ -558,3 +558,17 @@ html[data-design="new"] .ng-soc-vip { background: transparent url('vip-bikes.png
 
 /* ---------- v1.42: text „Na ostatních prodejnách“ není tučný (na rozdíl od názvů firem) ---------- */
 html[data-design="new"] #kb-dostupnost .ng-dl-other-name { font-weight: 400; font-family: fontTeuL, Arial, Verdana, sans-serif; }
+
+/* ---------- v1.43: Kde koupit – stejná velikost písma u názvu firmy, tlačítek i města (14 px) ---------- */
+html[data-design="new"] #kb-dostupnost tr.dstp-prodejce > td,
+html[data-design="new"] #kb-dostupnost tr.dstp-prodejce > td b { font-size: 14px !important; }
+html[data-design="new"] .pkarta .k-navi #kb-dostupnost.kb-list a.btn-dstp-koupit,
+html[data-design="new"] #kb-dostupnost a.ng-dl-btn,
+html[data-design="new"] #kb-dostupnost a.ng-dl-other { font-size: 14px; }
+
+/* ---------- v1.44: Kde koupit – řádek varianty (barva a velikost, název, počet prodejen) na jednotném šedém podkladu ---------- */
+html[data-design="new"] #kb-dostupnost tr.dstp-varianta { background-color: #f0f0f0; padding: 8px 12px; margin-top: 10px; }
+
+/* kontakt (telefon, e-mail) dealera s proklikem na web zůstává schovaný (nesmí ho přebít velikost písma výše) */
+html[data-design="new"] #kb-dostupnost table tr.dstp-prodejce:has(.btn-dstp-objednat) > td:nth-child(6) { display: none !important; }
+html[data-design="new"] #kb-dostupnost tr.dstp-varianta > td { background: transparent !important; border: 0 !important; }

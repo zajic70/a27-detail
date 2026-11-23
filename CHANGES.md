@@ -66,7 +66,8 @@ Vše platí na počítači i na mobilu, pokud není uvedeno jinak. Původní des
 - **Nadpisy sloupců tabulky** (Barevná varianta, Velikost, Dostupnost, Nákup, Město, Kontakt na prodejce, Kód modelu) se nezobrazují vůbec, na počítači ani na mobilu.
 - Informace s košíkem, „skladem“ a „objednat“ ve sloupci Dostupnost se nezobrazuje (vedla na totéž co tlačítko).
 - V řádku dealera jsou vedle sebe tři tlačítka: **OBJEDNAT TEĎ / KOUPIT TEĎ** (barvy původní: oranžové objednat, červené koupit, obě stejně široká, 118 px), **WEB** (hlavní adresa dealera, odvozená z adresy jeho e-shopu) a **MAPA** (otevře původní mapu), obě šedá a stejně široká (64 px). Dealer bez webu (Pavel Brabec) má jen koupit a mapu.
-- **Řádek varianty** (nadpis každé velikosti) má pořadí: vzorek barvy, **červená velikost**, název s objednacím číslem (např. „Sector 2026 zelenozlatá-matná / černá 17″  UA#42968602“) a až pak počet prodejen (`buildVariantRows()`).
+- **Řádek varianty** (nadpis každé velikosti) má pořadí: vzorek barvy, **červená velikost**, název s objednacím číslem (např. „Sector 2026 zelenozlatá-matná / černá 17″  UA#42968602“) a až pak počet prodejen (`buildVariantRows()`). Celý řádek je na **jednotném světle šedém podkladu**.
+- **Velikost písma** v řádku dealera je jednotná, 14 px: název firmy, tlačítka (objednat/koupit, web, mapa, objednat jinde) i město.
 - Na počítači jsou **tlačítka a město hned za názvem pobočky** (název má pevnou šířku, bez prázdného sloupce Dostupnost). Na mobilu nejsou mezi řádky dealerů tečkované čáry.
 - Název firmy je v lehce šedém poli na středu (bez odrážky). Velikost kola (17", 19", 20,5") u každé varianty je **červeně**.
 - Řádek „Na ostatních prodejnách“ vypadá jako ostatní: šedé pole s textem na úrovni názvů firem a vedle něj (kde jsou u ostatních tlačítka) tmavé tlačítko **OBJEDNAT JINDE**, stejně široké; klik jde původnímu odkazu „dealeři“.
