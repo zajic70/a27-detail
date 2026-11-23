@@ -590,11 +590,11 @@ html[data-design="new"] #kb-dostupnost table tr.dstp-prodejce > td:nth-child(2):
 @media only screen and (max-width: 840px) {
   html[data-design="new"] .ng-dl-stock { flex: 0 0 100%; }
   html[data-design="new"] .ng-dl-btns { gap: 8px; }
-  /* dotyková tlačítka: výška 44 px */
+  /* tlačítka na mobilu: výška 33 px jako hlavní tlačítko KOUPIT TEĎ */
   html[data-design="new"] .pkarta .k-navi #kb-dostupnost.kb-list a.btn-dstp-koupit,
   html[data-design="new"] #kb-dostupnost a.ng-dl-btn,
-  html[data-design="new"] #kb-dostupnost a.ng-dl-other { height: 44px; line-height: 44px; }
-  html[data-design="new"] .ng-dl-btn-ph { height: 44px; }
+  html[data-design="new"] #kb-dostupnost a.ng-dl-other { height: 33px; line-height: 33px; }
+  html[data-design="new"] .ng-dl-btn-ph { height: 33px; }
 }
 
 /* na mobilu tabulka dealerů nepřetéká přes šířku okna (žádný vodorovný posuvník) */
@@ -603,4 +603,9 @@ html[data-design="new"] #kb-dostupnost table tr.dstp-prodejce > td:nth-child(2):
   html[data-design="new"] #kb-dostupnost tbody,
   html[data-design="new"] #kb-dostupnost tr { display: block; width: 100%; max-width: 100%; box-sizing: border-box; }
   html[data-design="new"] #kb-dostupnost tr.dstp-prodejce > td { max-width: 100%; box-sizing: border-box; overflow-wrap: anywhere; }
+}
+
+/* na mobilu se název varianty s objednacím číslem v šedém řádku zalomí místo ořezání */
+@media only screen and (max-width: 840px) {
+  html[data-design="new"] #kb-dostupnost tr.dstp-varianta > td.ng-vr-name { max-width: 100%; overflow-wrap: anywhere; }
 }
