@@ -117,6 +117,8 @@
     ['Porovnání a výbava', 'Tlačítka jsou hned pod cenou, ve stylu záložek specifikace.'],
     ['Ostatní modely', 'Vidět jsou 4, zbytek přes „Více…“. Blok je na středu.'],
     ['Tlačítka', 'Jednotná velikost. Cena a KOUPIT TEĎ beze změny.'],
+    ['Jiný modelový rok', 'Na mobilu je to rozbalovací pruh jako záložky specifikace.'],
+    ['Testovací kopie', 'Odkazy nikam nevedou, stránka nic neodesílá. Slouží jen k prohlédnutí vzhledu.'],
     ['Přepínač', 'Původní / Nový design a Počítač / Mobil slouží jen pro vyzkoušení.']
   ];
   function openChanges() {
