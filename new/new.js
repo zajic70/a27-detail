@@ -123,7 +123,7 @@
     ['Ostatní modely', 'Vidět jsou 4 celé a pátý jako mizející náznak, zbytek přes „Více…“. Blok je na středu.'],
     ['Jiný modelový rok', 'Na mobilu je to rozbalovací pruh jako záložky specifikace.'],
     ['Kde koupit', 'U dealera s webem jen město, web a mapa (telefon a e-mail jsou schované). V řádku vedle sebe objednat/koupit (původní barvy, stejně široká), web a mapa (šedé). Název firmy v šedém poli na středu, velikost červeně, „Na ostatních prodejnách“ jako tmavé tlačítko. Bez informace o košíku a skladu, bez nadpisů sloupců, tlačítka hned za názvem pobočky. Řádek varianty: barva, červená velikost, název s objednacím číslem, až pak počet prodejen.'],
-    ['Spodní lišta', 'Po odrolování názvu se dole ukáže lišta s názvem modelu a cenou.'],
+    ['Spodní lišta', 'Po odrolování názvu se dole ukáže lišta s názvem modelu, akční a původní cenou. Tlačítko zpět nahoru je v ní vpravo.'],
     ['Texty', 'Bez zarovnání do bloku, delší texty jsou zarovnané vlevo.'],
     ['Tlačítka', 'Rozbalovací „Více…“ se šipkou, ostatní tlačítka stejně vysoká. Cena a KOUPIT TEĎ beze změny.']
   ];
@@ -651,17 +651,32 @@
     var h1 = document.querySelector('.lypi-h1');
     if (!h1 || document.querySelector('.ng-sticky')) return;
     var price = document.querySelector('.k-cena div b');
+    var oldPrice = document.querySelector('.k-cena > span s');
     var bar = el('div', 'ng-sticky', { 'aria-hidden': 'true' });
     var n = el('span', 'ng-st-name');
     n.textContent = h1.textContent.trim();
     bar.appendChild(n);
     if (price) {
       var p = el('span', 'ng-st-price');
-      p.textContent = price.textContent.trim();
+      p.innerHTML = '<i>Akční cena</i> ';
+      p.appendChild(document.createTextNode(price.textContent.trim()));
       bar.appendChild(p);
     }
+    if (oldPrice) {
+      var o = el('span', 'ng-st-old');
+      o.innerHTML = '<i>Původní cena</i> ';
+      var os = el('s');
+      os.textContent = oldPrice.textContent.replace(/ /g, ' ').trim();
+      o.appendChild(os);
+      bar.appendChild(o);
+    }
     document.body.appendChild(bar);
-    function upd() { bar.classList.toggle('is-on', h1.getBoundingClientRect().bottom < 0); }
+    // tlačítko „zpět nahoru“ (kolečko se šipkou) se při zobrazené liště posune do ní (třída na body)
+    function upd() {
+      var on = h1.getBoundingClientRect().bottom < 0;
+      bar.classList.toggle('is-on', on);
+      document.body.classList.toggle('ng-sticky-on', on);
+    }
     window.addEventListener('scroll', upd, { passive: true });
     window.addEventListener('resize', upd);
     upd();

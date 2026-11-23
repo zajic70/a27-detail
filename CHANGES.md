@@ -74,7 +74,7 @@ Vše platí na počítači i na mobilu, pokud není uvedeno jinak. Původní des
 - Ikonka barev se už nezlamuje (v původním mobilním rozložení se dva barevné proužky smrštily na 3 px). Řádek je zalomený: nahoře ikonka a název varianty, pod nimi velikosti s kódy (do 840 px).
 
 ### Společné
-- **Spodní lišta s modelem a cenou** (`buildStickyBar()`): po odrolování názvu nahoře se dole objeví lišta s názvem modelu a cenou (např. „Sector 2026  69 990 Kč“), aby bylo při rolování vidět, na jaký model se člověk dívá (inspirace Cateye). Při návratu nahoru zmizí.
+- **Spodní lišta s modelem a cenou** (`buildStickyBar()`): po odrolování názvu nahoře se dole objeví lišta s názvem modelu, **akční cenou a původní (přeškrtnutou) cenou** (např. „Sector 2026  AKČNÍ CENA 69 990 Kč  PŮVODNÍ CENA 86 990 Kč“), aby bylo při rolování vidět, na jaký model se člověk dívá (inspirace Cateye). Při návratu nahoru zmizí. Tlačítko „zpět nahoru“ (kolečko se šipkou) se při zobrazené liště posune přímo do ní, vpravo.
 - **Zarovnání textů**: žádné zarovnání do bloku, delší texty jsou zarovnané vlevo (původní web má `text-align: justify` na celém `body`).
 - **Otevřená okna** (lightbox, popis, mobilní náhled): stránka pod nimi neroluje a je vidět jen jeden posuvník (původní web má `html { overflow-y: scroll }`, proto `html:has(> body.ng-lock) { overflow-y: hidden }`). Lightbox má plně černé pozadí.
 - **Tlačítka**: stejně vysoká (32 px, fontTeuB 13 px, verzálky), menší než cena a KOUPIT TEĎ (ty zůstávají původní). Rozbalovací tlačítka „Více…“ (u popisu i u modelů) jsou šedý text se šipkou dolů/nahoru v barvě písma (ikona jako v mobilním akordeonu specifikace), při najetí oranžový.

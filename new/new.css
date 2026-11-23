@@ -498,6 +498,16 @@ html[data-design="new"] .ng-sticky { position: fixed; left: 0; right: 0; bottom:
 html[data-design="new"] .ng-sticky.is-on { transform: none; pointer-events: auto; }
 html[data-design="new"] .ng-st-name { font-size: 17px; color: #222; }
 html[data-design="new"] .ng-st-price { font-size: 17px; color: #cc0c01; }
+html[data-design="new"] .ng-st-old { font-size: 14px; color: #888; }
+html[data-design="new"] .ng-st-old s { color: #888; }
+html[data-design="new"] .ng-st-price i, html[data-design="new"] .ng-st-old i { font-style: normal; font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: .04em; margin-right: 4px; }
+/* tlačítko „zpět nahoru“ leží při zobrazené liště přímo v ní (vpravo) */
+html[data-design="new"] body.ng-sticky-on .wbbTopPage { bottom: 5px; right: 16px; z-index: 9001; }
+@media only screen and (max-width: 520px) {
+  html[data-design="new"] .ng-sticky { flex-wrap: wrap; gap: 2px 12px; padding: 8px 64px 8px 12px; justify-content: flex-start; }
+  html[data-design="new"] .ng-st-name, html[data-design="new"] .ng-st-price { font-size: 15px; }
+  html[data-design="new"] .ng-st-old { font-size: 12px; }
+}
 
 /* ---------- v1.36: Kde koupit na mobilu – bez tečkovaných čar mezi řádky dealerů (dealera odděluje šedé pole s názvem a mezera) ---------- */
 @media only screen and (max-width: 840px) {
