@@ -112,7 +112,7 @@
   var CHANGES = [
     ['Galerie', 'Velká fotka a pod ní jedna řada náhledů (posun prstem nebo tažením myši). Aktivní fotka má oranžové podtržení. Klik na fotku otevře všechny fotky pod sebou se zvětšením.'],
     ['Počet fotek a videí', 'Pod náhledy (např. 11 fotek, 1 video). Ikona videa se přesunula z pravého sloupce sem.'],
-    ['Popis', 'Dlouhý text je sbalený, celý se otevře přes „Více…“ v okně s větším písmem a hlavními přednostmi.'],
+    ['Popis', 'Dlouhý text je sbalený a celý se otevře přes „Více…“ v modálním okně s větším písmem a hlavními přednostmi (stejné řešení jako na Alze).'],
     ['Nadpisy', 'Popis a Ostatní modely mají šedý pruh s oranžovým proužkem vlevo.'],
     ['Porovnání a výbava', 'Tlačítka jsou hned pod cenou, ve stylu záložek specifikace.'],
     ['Ostatní modely', 'Vidět jsou 4, zbytek přes „Více…“. Blok je na středu.'],
