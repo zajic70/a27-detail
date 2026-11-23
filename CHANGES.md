@@ -2,6 +2,8 @@
 
 Zdroj: https://cz.author.eu/sector-29-2026-ua42968602 (stáhnuto 2026-11-17).
 
+**Verze 1.0** (2026-11-23): první ucelená verze nového designu detailu produktu. Další verze se budou číslovat a vydávat na GitHubu (https://github.com/Zajic70/a27-detail/releases).
+
 ## Struktura složky
 
 | Cesta | Co to je |
@@ -49,8 +51,8 @@ Vše platí na počítači i na mobilu, pokud není uvedeno jinak. Původní des
 - Tlačítko **Více…** (šedý text se šipkou) otevře **modální okno** (stejné řešení jako na Alze) s větším písmem: okno se otevře rovnou na podrobném textu, nad ním je velká fotka, název, úvod (první 2 bloky textu dělené dvojitým `<br>`) a znovu hlavní přednosti (kopie `.lypi-hdl`). Zavření: křížek, klik mimo, Esc (`buildModal()` v JS).
 
 ### Piktogramy
-- Pod štítky a nad „Ostatními modely“ malý jemně šedý blok „odjinud“ (pozadí #f6f6f6) s nadpisem „Novinky, návody, akce a tipy“ drobným šedým písmem na středu a pěti ikonami: **VIP Bikes** (popisek „Author’s Heroes“), **Facebook**, **Instagram**, **YouTube**, **Newsletter** (`.ng-soc`, `buildSocial()`).
-- Aplikační ikony 28 px se zaobleným čtvercem a barevným přechodem; VIP Bikes je černá s „VIP“ a ikonou kola, každá ikona má v rohu malý červený ovál Author (`new/author_oval.png`, vyříznutý z původního loga bez nápisu).
+- **Nad nadpisem Popis** (pod výčtem předností) malý jemně šedý blok „odjinud“ (pozadí #f6f6f6) s nadpisem „Novinky, návody, akce a tipy“ drobným šedým písmem na středu a pěti ikonami: **VIP Bikes** (popisek „Author’s Heroes“), **Facebook**, **Instagram**, **YouTube**, **Newsletter** (`.ng-soc`, `buildSocial()`).
+- Aplikační ikony 28 px se zaobleným čtvercem a barevným přechodem; VIP Bikes je logo VIP BIKES (černý zaoblený čtverec s bílým „VIP“ a „BIKES“, zatím překreslené jako SVG; originální soubor loga lze doplnit do `new/`), každá ikona má v rohu malý červený ovál Author (`new/author_oval.png`, vyříznutý z původního loga bez nápisu).
 - Odkazy v testovací kopii vedou na `#`, skutečné cíle jsou v atributu `data-url`: VIP Bikes https://hero.author.eu/, https://www.facebook.com/Author.cz/?locale=cs_CZ, https://www.instagram.com/authorbicycles/, https://www.youtube.com/@authoradmin; **adresa Newsletteru zatím není doplněná** (`data-url` je prázdné). Při nasazení dát `data-url` do `href`.
 
 ### Ostatní modely
@@ -67,7 +69,8 @@ Vše platí na počítači i na mobilu, pokud není uvedeno jinak. Původní des
 - **Řádek varianty** (nadpis každé velikosti) má pořadí: vzorek barvy, **červená velikost**, název s objednacím číslem (např. „Sector 2026 zelenozlatá-matná / černá 17″  UA#42968602“) a až pak počet prodejen (`buildVariantRows()`).
 - Na počítači jsou **tlačítka a město hned za názvem pobočky** (název má pevnou šířku, bez prázdného sloupce Dostupnost). Na mobilu nejsou mezi řádky dealerů tečkované čáry.
 - Název firmy je v lehce šedém poli na středu (bez odrážky). Velikost kola (17", 19", 20,5") u každé varianty je **červeně**.
-- Řádek „Na ostatních prodejnách“ je rovnou jedno tmavé tlačítko (text a odkaz „dealeři“ spojené, klik jde původnímu odkazu).
+- Řádek „Na ostatních prodejnách“ vypadá jako ostatní: šedé pole s textem na úrovni názvů firem a vedle něj (kde jsou u ostatních tlačítka) tmavé tlačítko **OBJEDNAT JINDE**, stejně široké; klik jde původnímu odkazu „dealeři“.
+- Celý seznam dealerů je na počítači **vystředěný** na stránce.
 - Všechny údaje a hlavičky v tabulce jsou zarovnané vlevo a tabulka je jen tak široká, jak je potřeba (na počítači).
 
 ### Varianty na mobilu (`#kb-varianty`)

@@ -433,15 +433,16 @@ html[data-design="new"] .ng-dl-btn { min-width: 64px; padding: 0 8px; text-align
   html[data-design="new"] #kb-dostupnost table td { padding-right: 18px; }
 }
 /* řádek „Na ostatních prodejnách“ je jedno tmavé tlačítko (text + odkaz dealeři spojené v JS); původní text a odkaz zůstávají jen skryté */
-.ng-dl-other { display: none; }
+.ng-dl-other, .ng-dl-other-name { display: none; }
+html[data-design="new"] #kb-dostupnost .ng-dl-other-name { display: inline; }
 html[data-design="new"] #kb-dostupnost .ng-dl-other-txt,
 html[data-design="new"] #kb-dostupnost a.dstp-mapa[target^="ndealmapa"] { display: none; }
-html[data-design="new"] #kb-dostupnost a.ng-dl-other { display: inline-block; height: 22px; padding: 0 15px; background-color: #4A4A4A; color: #fff;
+html[data-design="new"] #kb-dostupnost a.ng-dl-other { display: inline-block; min-width: 118px; box-sizing: border-box; text-align: center; height: 22px; padding: 0 8px; background-color: #4A4A4A; color: #fff;
   font: 13px/24px fontTeuB, Arial, Verdana, sans-serif; text-transform: uppercase; text-decoration: none; white-space: nowrap; cursor: pointer; transition: background-color .1s; }
 html[data-design="new"] #kb-dostupnost a.ng-dl-other:hover { background-color: #F29400; color: #fff; text-decoration: none; }
 /* název firmy: lehce šedé podbarvení a na střed, bez odrážky */
 html[data-design="new"] #kb-dostupnost .ng-dl-bullet { display: none; }
-html[data-design="new"] #kb-dostupnost table tr.dstp-prodejce > td:nth-child(2):has(.ng-dl-bullet) { background-color: #f3f3f3; text-align: center; }
+html[data-design="new"] #kb-dostupnost table tr.dstp-prodejce > td:nth-child(2):is(:has(.ng-dl-bullet), :has(.ng-dl-other-name)) { background-color: #f3f3f3; text-align: center; }
 
 /* ---------- v1.27: žádné zarovnání do bloku – delší texty jsou zarovnané vlevo (původní web má text-align: justify na celém body) ---------- */
 html[data-design="new"] body,
@@ -527,7 +528,6 @@ html[data-design="new"] body.ng-sticky-on .wbbTopPage { bottom: 5px; right: 16px
   html[data-design="new"] #kb-dostupnost tr.dstp-prodejce > td:empty { display: none; }
   /* název pobočky: pevná šířka, aby šly pod sebou stejně široká šedá pole */
   html[data-design="new"] #kb-dostupnost tr.dstp-prodejce > td:nth-child(2) { flex: 0 0 250px; padding: 7px 8px !important; border-bottom: 1px solid #fff !important; }
-  html[data-design="new"] #kb-dostupnost tr.dstp-prodejce > td:nth-child(2):has(.ng-dl-other) { flex: 0 0 auto; padding: 8px 0 !important; border-bottom: 0 !important; }
   html[data-design="new"] #kb-dostupnost tr.dstp-prodejce > td:nth-child(5),
   html[data-design="new"] #kb-dostupnost tr.dstp-prodejce > td:nth-child(6) { white-space: nowrap; }
 }
@@ -540,3 +540,10 @@ html[data-design="new"] body.ng-sticky-on .wbbTopPage { bottom: 5px; right: 16px
 .ds.is-open .ds-chev { transform: rotate(135deg); }
 .ds-body { display: none; align-items: center; gap: 2px; }
 .ds.is-open .ds-body { display: inline-flex; }
+
+/* ---------- v1.39: logo VIP BIKES (SVG) v piktogramech; seznam dealerů na počítači na středu stránky ---------- */
+html[data-design="new"] .ng-soc-vip { background: #000; overflow: visible; }
+html[data-design="new"] .ng-soc-tile .ng-soc-vip-logo { display: block; width: 28px; height: 28px; border-radius: 7px; }
+@media only screen and (min-width: 841px) {
+  html[data-design="new"] #kb-dostupnost table { width: max-content; max-width: 100%; margin-left: auto; margin-right: auto; }
+}

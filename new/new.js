@@ -132,7 +132,7 @@
     ['Galerie', 'Velká fotka a pod ní jedna řada náhledů (posun prstem, tažením myši nebo šipkami přes okraje řady). Aktivní fotka má oranžové podtržení. Klik na fotku otevře všechny fotky pod sebou se zvětšením (křížek na oranžovém kruhu). První fotka se zobrazí hned, zbytek se dotahuje později.'],
     ['Počet fotek a videí', 'Pod náhledy (např. 11 fotek, 1 video). Ikona videa se přesunula z pravého sloupce sem.'],
     ['Popis', 'Nadpis Popis a sbalený text s větším písmem. Celý se otevře přes „Více…“ v modálním okně (stejné řešení jako na Alze), rovnou na podrobném textu.'],
-    ['Piktogramy', 'Pod popisem malý šedý blok Novinky, návody, akce a tipy s pěti malými ikonami: VIP Bikes, Facebook, Instagram, YouTube a Newsletter. Mají barevný přechod a červený ovál Author v rohu (v testovací kopii nikam nevedou).'],
+    ['Piktogramy', 'Nad nadpisem Popis malý šedý blok Novinky, návody, akce a tipy s pěti malými ikonami: VIP Bikes, Facebook, Instagram, YouTube a Newsletter. Mají barevný přechod a červený ovál Author v rohu (v testovací kopii nikam nevedou).'],
     ['Ostatní modely', 'Vidět jsou 4 celé a pátý jako mizející náznak, zbytek přes „Více…“. Blok je na středu.'],
     ['Jiný modelový rok', 'Na mobilu je to rozbalovací pruh jako záložky specifikace.'],
     ['Kde koupit', 'U dealera s webem jen město, web a mapa (telefon a e-mail jsou schované). V řádku vedle sebe objednat/koupit (původní barvy, stejně široká), web a mapa (šedé). Název firmy v šedém poli na středu, velikost červeně, „Na ostatních prodejnách“ jako tmavé tlačítko. Bez informace o košíku a skladu, bez nadpisů sloupců, tlačítka hned za názvem pobočky. Řádek varianty: barva, červená velikost, název s objednacím číslem, až pak počet prodejen.'],
@@ -550,7 +550,10 @@
     ['nl', 'Newsletter', '', '<path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"/>']
   ];
   function buildSocial() {
-    var anchor = document.querySelector('.lypi-mp-rmenu');
+    // blok piktogramů je nad nadpisem Popis (kdyby nadpis nebyl, tak nad Ostatními modely)
+    var pw = document.querySelector('.ng-perex-wrap');
+    var anchor = (pw && pw.previousElementSibling && pw.previousElementSibling.classList.contains('ng-h'))
+      ? pw.previousElementSibling : document.querySelector('.lypi-mp-rmenu');
     if (!anchor || document.querySelector('.ng-soc')) return;
     var sec = el('section', 'ng-soc');
     var head = el('strong', 'ng-h');
@@ -561,7 +564,13 @@
       var a = el('a', 'ng-soc-i', { href: '#', 'data-url': x[2] });
       var tile = el('span', 'ng-soc-tile ng-soc-' + x[0]);
       if (x[0] === 'vip') {
-        tile.innerHTML = '<span class="ng-soc-vip-t"><b>VIP</b><svg class="ng-soc-bike" viewBox="0 0 24 14" aria-hidden="true"><circle cx="5" cy="9.5" r="3.8"/><circle cx="19" cy="9.5" r="3.8"/><path d="M5 9.5H11.5L9.5 3.5H16.5L11.5 9.5M16.5 3.5L19 9.5M7.8 2.2H11.2M16.5 3.5L16.7 1.8H18.7"/></svg></span><span class="ng-soc-badge"></span>';
+        // logo VIP BIKES: černý zaoblený čtverec, bílé „VIP“ a „BIKES“ roztažené na šířku (překresleno jako SVG podle dodaného loga)
+        tile.innerHTML = '<svg class="ng-soc-vip-logo" viewBox="0 0 100 100" aria-hidden="true">' +
+          '<rect width="100" height="100" rx="17" fill="#000"/>' +
+          '<g fill="#fff" font-family="Impact, \'Arial Narrow\', \'Helvetica Neue\', Arial, sans-serif" font-weight="900">' +
+          '<text x="9" y="60" font-size="58" textLength="82" lengthAdjust="spacingAndGlyphs">VIP</text>' +
+          '<text x="9" y="90" font-size="30" textLength="82" lengthAdjust="spacingAndGlyphs">BIKES</text></g></svg>' +
+          '<span class="ng-soc-badge"></span>';
       } else {
         tile.innerHTML = '<svg viewBox="0 0 16 16" aria-hidden="true">' + x[3] + '</svg><span class="ng-soc-badge"></span>';
       }
@@ -705,18 +714,24 @@
       if (tr.getAttribute('data-ng-done')) return;
       var buy = tr.querySelector('a.btn-dstp-koupit');
       var map = tr.querySelector('a.dstp-mapa');
-      // řádek „Na ostatních prodejnách“: text + odkaz „dealeři“ se spojí v jedno tmavé tlačítko (klik se předá původnímu odkazu)
+      // řádek „Na ostatních prodejnách“: šedé pole s textem na úrovni názvů firem + tlačítko OBJEDNAT JINDE tam, kde jsou u ostatních tlačítka
+      // (klik tlačítka se předá původnímu odkazu „dealeři“)
       if (!buy && map && /ndealmapa/.test(map.getAttribute('target') || '')) {
         tr.setAttribute('data-ng-done', '1');
         var txtCell = tr.children[1];
-        if (txtCell) {
+        var btnCell = tr.children[3];
+        if (txtCell && btnCell) {
           var old = el('span', 'ng-dl-other-txt');
           while (txtCell.firstChild) old.appendChild(txtCell.firstChild);
           txtCell.appendChild(old);
+          var nm = el('b', 'ng-dl-other-name');
+          nm.textContent = 'Na ostatních prodejnách';
+          txtCell.appendChild(nm);
           var ob = el('a', 'ng-dl-other', { href: '#' });
-          ob.textContent = 'Na ostatních prodejnách';
+          ob.textContent = 'Objednat jinde';
           ob.addEventListener('click', function (e) { e.preventDefault(); map.click(); });
-          txtCell.appendChild(ob);
+          btnCell.classList.remove('resp-h');   // původně prázdná buňka skrytá na mobilu, teď v ní je tlačítko
+          btnCell.appendChild(ob);
         }
         return;
       }
