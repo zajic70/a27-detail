@@ -135,7 +135,7 @@
     ['Piktogramy', 'Nad nadpisem Popis malý šedý blok Novinky, návody, akce a tipy s pěti malými ikonami: VIP Bikes, Facebook, Instagram, YouTube a Newsletter. Mají barevný přechod a červený ovál Author v rohu (v testovací kopii nikam nevedou).'],
     ['Ostatní modely', 'Vidět jsou 4 celé a pátý jako mizející náznak, zbytek přes „Více…“. Blok je na středu.'],
     ['Jiný modelový rok', 'Na mobilu je to rozbalovací pruh jako záložky specifikace.'],
-    ['Kde koupit', 'U dealera s webem jen město, web a mapa (telefon a e-mail jsou schované). V řádku vedle sebe objednat/koupit (původní barvy, stejně široká), web a mapa (šedé). Název firmy v šedém poli na středu, velikost červeně, „Na ostatních prodejnách“ jako tmavé tlačítko. Bez informace o košíku a skladu, bez nadpisů sloupců, tlačítka hned za názvem pobočky. Řádek varianty: barva, červená velikost, název s objednacím číslem, až pak počet prodejen.'],
+    ['Kde koupit', 'U dealera s webem jen město, web a mapa (telefon a e-mail jsou schované). V řádku vedle sebe objednat/koupit (původní barvy, stejně široká), web a mapa (šedé). Název firmy v šedém poli na středu, velikost červeně, „Na ostatních prodejnách“ jako tmavé tlačítko. Před tlačítky stav Skladem / Na objednání, bez nadpisů sloupců, tlačítka hned za názvem pobočky, názvy vlevo, na mobilu větší dotyková tlačítka. Řádek varianty: barva, červená velikost, název s objednacím číslem, až pak počet prodejen.'],
     ['Spodní lišta', 'Po odrolování názvu se dole ukáže lišta s názvem modelu, akční a původní cenou. Tlačítko zpět nahoru je v ní vpravo.'],
     ['Texty', 'Bez zarovnání do bloku, delší texty jsou zarovnané vlevo.'],
     ['Tlačítka', 'Rozbalovací „Více…“ se šipkou, ostatní tlačítka stejně vysoká. Cena a KOUPIT TEĎ beze změny.']
@@ -483,7 +483,13 @@
           document.getElementById('km-geometrie').click();
           target = document.getElementById('km-geometrie');
         }
-        setTimeout(function () { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 50);
+        // posun s odsazením pod pevnou horní lištu webu, ať je vidět nadpis sekce i první řádek (po dojetí vlastního posunu původního skriptu)
+        setTimeout(function () {
+          var hp = document.querySelector('.tpanel');
+          var off = 12;
+          if (hp) off += hp.getBoundingClientRect().height;   // výška hlavičky se počítá vždy (při rolování se může přepnout na pevnou)
+          window.scrollTo({ top: target.getBoundingClientRect().top + window.pageYOffset - off, behavior: 'smooth' });
+        }, 300);
       });
       actions.insertBefore(sz, actions.firstChild);   // Vaše velikost je první
     }
@@ -746,12 +752,21 @@
       var box = el('span', 'ng-dl-btns');
       buy.parentNode.insertBefore(box, buy);
       box.appendChild(buy);
+      // stav před tlačítky: Skladem / Na objednání (podle původní informace s košíkem ve sloupci Dostupnost)
+      var kos = tr.querySelector('td.kosik a');
+      var inStock = kos && /skladem/i.test(kos.textContent);
+      var st = el('span', 'ng-dl-stock' + (inStock ? ' is-in' : ''));
+      st.textContent = inStock ? 'Skladem' : 'Na objednání';
+      box.insertBefore(st, buy);
       var eshop = buy.getAttribute('data-url') || '';
       if (buy.classList.contains('btn-dstp-objednat') && /^https?:\/\//.test(eshop)) {
         var home = eshop.replace(/^(https?:\/\/[^\/]+).*$/, '$1/');
         var web = el('a', 'ng-dl-btn ng-dl-web', { href: '#', 'data-url': home });
         web.textContent = 'Web';
         box.appendChild(web);
+      } else {
+        // dealer bez webu: prázdné místo, ať MAPA a město zůstanou ve stejných sloupcích jako u ostatních
+        box.appendChild(el('span', 'ng-dl-btn-ph', { 'aria-hidden': 'true' }));
       }
       if (map) {
         var m = el('a', 'ng-dl-btn ng-dl-map', { href: '#' });

@@ -575,3 +575,32 @@ html[data-design="new"] #kb-dostupnost tr.dstp-varianta > td { background: trans
 
 /* ---------- v1.45: název firmy má stejné písmo jako tlačítka (skutečné tučné fontTeuB místo uměle ztučněného fontTeuL), ať není opticky větší ---------- */
 html[data-design="new"] #kb-dostupnost tr.dstp-prodejce > td:nth-child(2) b:not(.ng-dl-other-name) { font-family: fontTeuB, Arial, Verdana, sans-serif; font-weight: 400; font-size: 14px !important; }
+
+/* ---------- v1.46: Kde koupit – stav Skladem / Na objednání před tlačítky, pevné sloupce i bez WEBu, názvy vlevo, větší dotyková tlačítka na mobilu ---------- */
+.ng-dl-stock, .ng-dl-btn-ph { display: none; }
+html[data-design="new"] .ng-dl-stock { display: inline-block; flex: 0 0 96px; font: 13px/22px fontTeuL, Arial, Verdana, sans-serif; color: #666; }
+html[data-design="new"] .ng-dl-stock.is-in { color: #2e7d32; font-family: fontTeuB, Arial, Verdana, sans-serif; }
+html[data-design="new"] .ng-dl-btn-ph { display: inline-block; flex: 0 0 64px; height: 22px; }
+/* název firmy (i „Na ostatních prodejnách“) vlevo, na společné levé hraně */
+html[data-design="new"] #kb-dostupnost table tr.dstp-prodejce > td:nth-child(2):is(:has(.ng-dl-bullet), :has(.ng-dl-other-name)) { text-align: left; padding-left: 12px !important; }
+@media only screen and (min-width: 841px) {
+  /* město má pevný sloupec, ať jsou města i kontakty pod sebou i u dealera bez WEBu */
+  html[data-design="new"] #kb-dostupnost tr.dstp-prodejce > td:nth-child(5) { flex: 0 0 150px; }
+}
+@media only screen and (max-width: 840px) {
+  html[data-design="new"] .ng-dl-stock { flex: 0 0 100%; }
+  html[data-design="new"] .ng-dl-btns { gap: 8px; }
+  /* dotyková tlačítka: výška 44 px */
+  html[data-design="new"] .pkarta .k-navi #kb-dostupnost.kb-list a.btn-dstp-koupit,
+  html[data-design="new"] #kb-dostupnost a.ng-dl-btn,
+  html[data-design="new"] #kb-dostupnost a.ng-dl-other { height: 44px; line-height: 44px; }
+  html[data-design="new"] .ng-dl-btn-ph { height: 44px; }
+}
+
+/* na mobilu tabulka dealerů nepřetéká přes šířku okna (žádný vodorovný posuvník) */
+@media only screen and (max-width: 840px) {
+  html[data-design="new"] #kb-dostupnost table,
+  html[data-design="new"] #kb-dostupnost tbody,
+  html[data-design="new"] #kb-dostupnost tr { display: block; width: 100%; max-width: 100%; box-sizing: border-box; }
+  html[data-design="new"] #kb-dostupnost tr.dstp-prodejce > td { max-width: 100%; box-sizing: border-box; overflow-wrap: anywhere; }
+}
