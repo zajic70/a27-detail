@@ -472,6 +472,22 @@
     h.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
   }
 
+  /* ---------- testovací kopie: nic nikam nepřekliká (při nasazení smazat) ----------
+     Odkazy v index.html vedou na "#", tady se navíc ruší výchozí akce kliknutí (skok na začátek, nové okno),
+     odeslání formulářů a přepnutí jazyka (#changeHreflang mění window.location). Obsluha v rámci stránky
+     (záložky, galerie, porovnání) dál běží, protože se nevolá stopPropagation. */
+  function blockNavigation() {
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('a[href]');
+      if (a) e.preventDefault();
+    }, true);
+    document.addEventListener('submit', function (e) { e.preventDefault(); }, true);
+    document.addEventListener('change', function (e) {
+      if (e.target && e.target.id === 'changeHreflang') e.stopImmediatePropagation();
+    }, true);
+  }
+  blockNavigation();
+
   function init() {
     if (!inFrame) buildSwitch();
     buildCollapse();

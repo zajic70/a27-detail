@@ -25,6 +25,8 @@ Zdroj: https://cz.author.eu/sector-29-2026-ua42968602 (stáhnuto 2026-11-17).
    ```
 5. **Testovací úpravy (při nasazení vrátit):** chat Smartsupp odstraněn (komentář na jeho místě) a `<meta name="robots">` přepnuto z `index,follow` na `noindex,nofollow`, aby vyhledávače nebraly testovací kopii na GitHub Pages jako druhý web.
 
+6. **Testovací kopie nikam nepřekliká (při nasazení vrátit):** všech 380 odkazů `<a href>` vede na `#` (nechány jen `#!…` záložky specifikace, které čte `web.js`) a `action` hledacího formuláře je `#`. V `new.js` je navíc funkce `blockNavigation()`: ruší výchozí akci kliknutí na odkazy, odeslání formulářů a přepnutí jazyka (`#changeHreflang`). Původní odkazy jsou v `_orig/index_lokalni_kopie.html`.
+
 Žádná jiná úprava HTML značek. Původní galerie (Slick) zůstává v DOM, v novém designu je jen skrytá.
 
 Diff proti originálu: `diff _orig/index_lokalni_kopie.html index.html` (2 řádky nového designu + testovací úpravy z bodu 5). Složka `_orig/` je jen lokálně, do repozitáře se nenahrává.
