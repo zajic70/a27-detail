@@ -465,3 +465,14 @@ html[data-design="new"] #kb-dostupnost tr.dstp-varianta > td:nth-child(3) b { co
 @media only screen and (max-width: 520px) {
   html[data-design="new"] .ng-actions .ng-btn { white-space: normal; height: auto; min-height: 38px; padding: 5px 4px; font-size: 12px; line-height: 1.2; }
 }
+
+/* ---------- v1.32: Ostatní modely – 4 modely celé, pátý jako mizející náznak, tlačítko Více… leží přes bílý přechod (před ním) ---------- */
+html[data-design="new"] .bl-menu.ng-models.is-collapsed > a:nth-child(5) { display: inline-block; }
+html[data-design="new"] .bl-menu.ng-models.is-collapsed > a:nth-child(n+6) { display: none; }
+html[data-design="new"] .ng-models-wrap.is-collapsed { margin-bottom: 1.6rem; }
+html[data-design="new"] .ng-models-wrap.is-collapsed::after { display: block; content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1.7rem; z-index: 1;
+  background: linear-gradient(to bottom, rgba(255,255,255,0), #fff); pointer-events: none; }
+html[data-design="new"] .ng-models-wrap.is-collapsed .ng-more-m { position: absolute; left: 50%; bottom: 0; margin: 0; transform: translate(-50%, 50%); z-index: 2; box-shadow: 0 0 0 4px #fff; }
+
+/* ---------- v1.33: Kde koupit – nadpisy sloupců (Barevná varianta, Velikost, Dostupnost, Nákup, Město, Kontakt, Kód modelu) se nezobrazují vůbec ---------- */
+html[data-design="new"] #kb-dostupnost table tr:has(> th) { display: none; }

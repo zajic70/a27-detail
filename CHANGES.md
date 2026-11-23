@@ -54,13 +54,14 @@ Vše platí na počítači i na mobilu, pokud není uvedeno jinak. Původní des
 - Odkazy v testovací kopii vedou na `#`, skutečné cíle jsou v atributu `data-url`: VIP Bikes https://hero.author.eu/, https://www.facebook.com/Author.cz/?locale=cs_CZ, https://www.instagram.com/authorbicycles/, https://www.youtube.com/@authoradmin; **adresa Newsletteru zatím není doplněná** (`data-url` je prázdné). Při nasazení dát `data-url` do `href`.
 
 ### Ostatní modely
-- Celý blok (nadpis, seznam, tlačítko) je vystředěný v pravém sloupci. Vidět jsou **4 modely celé** (poslední není pod bílým přechodem), v nadpisu počet (např. „ostatní modely (10)“). Tlačítko **Více…** je těsně pod seznamem, po rozbalení „Méně…“ (obal `.ng-models-wrap`, `buildModels()` v JS). Nadpis je šedý pruh s oranžovým proužkem jako „Popis“.
+- Celý blok (nadpis, seznam, tlačítko) je vystředěný v pravém sloupci. Vidět jsou **4 modely celé** (žádný z nich není pod bílým přechodem) a pátý jako mizející náznak, v nadpisu počet (např. „ostatní modely (10)“). Tlačítko **Více…** leží přes ten bílý přechod, po rozbalení je pod seznamem jako „Méně…“ (obal `.ng-models-wrap`, `buildModels()` v JS). Nadpis je šedý pruh s oranžovým proužkem jako „Popis“.
 
 ### Jiný modelový rok
 - Na mobilu (do 840 px) rozbalovací tmavý pruh se šipkou jako záložky specifikace, roky jsou výchozí sbalené, písmo stejné jako u záložek (`.lyp-time .timeline`, `buildYears()`). Na počítači beze změny.
 
 ### Kde koupit – seznam dealerů (`#kb-dostupnost`, jen CSS a `buildDealers()`)
-- U dealera s proklikem na web se ukáže jen **město, web (tlačítko) a mapa**; telefon a e-mail jsou schované, zájemce je najde na webu dealera (stejný princip jako na ketaj.cz). Dealeři bez webu mají kontakt dál (hlavička „Kontakt na prodejce“ proto zůstává). Na mobilu se kontakt schová úplně.
+- U dealera s proklikem na web se ukáže jen **město, web (tlačítko) a mapa**; telefon a e-mail jsou schované, zájemce je najde na webu dealera (stejný princip jako na ketaj.cz). Dealeři bez webu mají kontakt dál. Na mobilu se kontakt schová úplně.
+- **Nadpisy sloupců tabulky** (Barevná varianta, Velikost, Dostupnost, Nákup, Město, Kontakt na prodejce, Kód modelu) se nezobrazují vůbec, na počítači ani na mobilu.
 - Informace s košíkem, „skladem“ a „objednat“ ve sloupci Dostupnost se nezobrazuje (vedla na totéž co tlačítko).
 - V řádku dealera jsou vedle sebe tři tlačítka: **OBJEDNAT TEĎ / KOUPIT TEĎ** (barvy původní: oranžové objednat, červené koupit, obě stejně široká, 118 px), **WEB** (hlavní adresa dealera, odvozená z adresy jeho e-shopu) a **MAPA** (otevře původní mapu), obě šedá a stejně široká (64 px). Dealer bez webu (Pavel Brabec) má jen koupit a mapu.
 - Název firmy je v lehce šedém poli na středu (bez odrážky). Velikost kola (17", 19", 20,5") u každé varianty je **červeně**.

@@ -120,9 +120,9 @@
     ['Počet fotek a videí', 'Pod náhledy (např. 11 fotek, 1 video). Ikona videa se přesunula z pravého sloupce sem.'],
     ['Popis', 'Nadpis Popis a sbalený text s větším písmem. Celý se otevře přes „Více…“ v modálním okně (stejné řešení jako na Alze), rovnou na podrobném textu.'],
     ['Piktogramy', 'Pod popisem malý šedý blok Novinky, návody, akce a tipy s pěti malými ikonami: VIP Bikes, Facebook, Instagram, YouTube a Newsletter. Mají barevný přechod a červený ovál Author v rohu (v testovací kopii nikam nevedou).'],
-    ['Ostatní modely', 'Vidět jsou 4 celé, zbytek přes „Více…“ pod seznamem. Blok je na středu.'],
+    ['Ostatní modely', 'Vidět jsou 4 celé a pátý jako mizející náznak, zbytek přes „Více…“. Blok je na středu.'],
     ['Jiný modelový rok', 'Na mobilu je to rozbalovací pruh jako záložky specifikace.'],
-    ['Kde koupit', 'U dealera s webem jen město, web a mapa (telefon a e-mail jsou schované). V řádku vedle sebe objednat/koupit (původní barvy, stejně široká), web a mapa (šedé). Název firmy v šedém poli na středu, velikost červeně, „Na ostatních prodejnách“ jako tmavé tlačítko. Bez informace o košíku a skladu, údaje vlevo.'],
+    ['Kde koupit', 'U dealera s webem jen město, web a mapa (telefon a e-mail jsou schované). V řádku vedle sebe objednat/koupit (původní barvy, stejně široká), web a mapa (šedé). Název firmy v šedém poli na středu, velikost červeně, „Na ostatních prodejnách“ jako tmavé tlačítko. Bez informace o košíku a skladu, bez nadpisů sloupců, údaje vlevo.'],
     ['Texty', 'Bez zarovnání do bloku, delší texty jsou zarovnané vlevo.'],
     ['Tlačítka', 'Rozbalovací „Více…“ se šipkou, ostatní tlačítka stejně vysoká. Cena a KOUPIT TEĎ beze změny.']
   ];
@@ -497,7 +497,7 @@
     var menu = document.querySelector('.lypi-mp-rmenu .bl-menu');
     if (!menu || menu.getAttribute('data-ng-done')) return;
     var n = menu.querySelectorAll('a:not(.km-vice)').length;
-    if (n <= 4) return;
+    if (n <= 5) return;   // 4 modely celé + pátý jako mizející náznak
     menu.setAttribute('data-ng-done', '1');
     menu.classList.add('ng-models', 'is-collapsed');
 
