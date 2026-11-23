@@ -118,9 +118,7 @@
     ['Ostatní modely', 'Vidět jsou 4, zbytek přes „Více…“. Blok je na středu.'],
     ['Tlačítka', 'Jednotná velikost. Cena a KOUPIT TEĎ beze změny.'],
     ['Jiný modelový rok', 'Na mobilu je to rozbalovací pruh jako záložky specifikace.'],
-    ['Testovací kopie', 'Logo v hlavičce je oranžové s černým okrajem a nápisem TEST PAGE. Stránka běží na GitHub Pages (zajic70.github.io/a27-detail). Odkazy nikam nevedou, stránka nic neodesílá. Slouží jen k prohlédnutí vzhledu.'],
-    ['Piktogramy', 'Pod popisem malý šedý blok Novinky, návody, akce a tipy se čtyřmi malými ikonami: VIP Bikes, Facebook, Instagram a YouTube Authoru. Mají barevný přechod a červený ovál Author v rohu (v testovací kopii nikam nevedou).'],
-    ['Přepínač', 'Původní / Nový design a Počítač / Mobil slouží jen pro vyzkoušení.']
+    ['Piktogramy', 'Pod popisem malý šedý blok Novinky, návody, akce a tipy se čtyřmi malými ikonami: VIP Bikes, Facebook, Instagram a YouTube Authoru. Mají barevný přechod a červený ovál Author v rohu (v testovací kopii nikam nevedou).']
   ];
   function openChanges() {
     var m = document.querySelector('.dsc');
@@ -194,6 +192,7 @@
       '</div>' +
       '<div class="ng-info"></div>';
     host.insertBefore(ng, host.firstChild);
+    if (window.performance && performance.mark) performance.mark('ng-built');
 
     var view = ng.querySelector('.ng-view');
     var strip = ng.querySelector('.ng-strip');
@@ -212,7 +211,7 @@
     function render(target, it) {
       target.innerHTML = '';
       if (it.type === 'img') {
-        var im = el('img', '', { src: it.full, alt: it.alt, draggable: 'false' });
+        var im = el('img', '', { src: it.full, alt: it.alt, draggable: 'false', fetchpriority: 'high', decoding: 'async' });
         target.appendChild(im);
       } else {
         var f = el('iframe', 'ng-video', { src: it.embed, allowfullscreen: '', referrerpolicy: 'strict-origin-when-cross-origin' });
@@ -532,10 +531,12 @@
     buildYears();
     buildSocial();
     setMode(mode);
+    // galerii stavíme hned, ne až po načtení všech obrázků (load); po load se jen doplní, kdyby tehdy ještě nebyly slidy
+    buildGallery();
     if (!inFrame) setView(readView());
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
-  // galerii stavíme až po načtení, to už je původní Slick inicializovaný
+  // pojistka: kdyby slidy při DOMContentLoaded ještě nebyly hotové
   window.addEventListener('load', buildGallery);
 
 })();

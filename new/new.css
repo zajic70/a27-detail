@@ -356,3 +356,6 @@ html[data-design="new"] .ng-soc-badge { position: absolute; right: -4px; bottom:
 /* šipka se ukáže jen tam, kam se dá řada posunout (jinak zbytečně zesvětlovala krajní fotku) */
 .ng:not(.can-left) .ng-row > .ng-ar:first-child,
 .ng:not(.can-right) .ng-row > .ng-ar:last-child { opacity: 0; pointer-events: none; }
+
+/* ---------- v1.18: než se postaví galerie, drží místo šedá plocha 4:3 (stránka neposkočí) ---------- */
+html[data-design="new"] .lyp-gal:not(:has(#ng)) { aspect-ratio: 4 / 3; background: #f4f4f4; }
