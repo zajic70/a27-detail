@@ -365,3 +365,11 @@ html[data-design="new"] .lyp-gal:not(:has(#ng)) { aspect-ratio: 4 / 3; backgroun
 /* ---------- v1.19: než se načtou náhledy a první fotka, drží místo šedá plocha ---------- */
 .ng-th { background: #eee; }
 .ng-view { background: #f4f4f4; }
+
+/* ---------- v1.20: cenová sekce vpravo: nahoře původní cena, pod ní tlačítko KOUPIT TEĎ a před cenou, akční cena úplně vpravo ---------- */
+html[data-design="new"] .k-cena.lypi-cena { display: flex; flex-direction: column; align-items: flex-end; text-align: right; }
+html[data-design="new"] .k-cena.lypi-cena > span { order: -1; margin: 0 0 6px; padding: 0 15px 0 0; }
+html[data-design="new"] .k-cena.lypi-cena > div { order: 0; }
+/* tlačítko leží vlevo od šedého pole s akční cenou (pozicování vůči poli, ne vůči původnímu zero-size prvku s) */
+html[data-design="new"] .k-cena.lypi-cena > div s { position: static; float: none; }
+html[data-design="new"] .k-cena.lypi-cena > div s a.btnKT { left: auto; right: calc(100% + 8px); top: 50%; transform: translateY(-50%); }
