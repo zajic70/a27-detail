@@ -373,3 +373,6 @@ html[data-design="new"] .k-cena.lypi-cena > div { order: 0; }
 /* tlačítko leží vlevo od šedého pole s akční cenou (pozicování vůči poli, ne vůči původnímu zero-size prvku s) */
 html[data-design="new"] .k-cena.lypi-cena > div s { position: static; float: none; }
 html[data-design="new"] .k-cena.lypi-cena > div s a.btnKT { left: auto; right: calc(100% + 8px); top: 50%; transform: translateY(-50%); }
+
+/* ---------- v1.21: text „Barevné varianty“ nad barevnými čtverečky se v novém designu nezobrazuje ---------- */
+html[data-design="new"] .lypi-barva > s { display: none; }
