@@ -317,22 +317,25 @@ html[data-design="new"] .ng-lb:not([hidden]) { background: #000; }
   html[data-design="new"] .pkarta .timeline.ng-years.is-open > div { padding-top: 6px; }
 }
 
-/* ---------- v1.15: piktogramy Hero / Facebook / Instagram / YouTube mezi štítky a Ostatními modely ---------- */
+/* ---------- v1.15: piktogramy VIP Bikes / Facebook / Instagram / YouTube – malý jemně šedý blok „odjinud“ mezi štítky a Ostatními modely ---------- */
 .ng-soc { display: none; }
-html[data-design="new"] .ng-soc { display: block; }
-html[data-design="new"] .ng-soc-row { display: flex; justify-content: space-between; gap: 8px; margin: 0; padding: 0 12px 6px; }
-html[data-design="new"] .ng-soc-i { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 25%; color: #444; text-decoration: none;
-  text-align: center; text-transform: uppercase; letter-spacing: .03em; font: 13px/1.2 fontTeuL, Arial, Verdana, sans-serif; }
+html[data-design="new"] .ng-soc { display: block; margin: 18px 0 0; padding: 8px 12px 10px; background: #f6f6f6; }
+html[data-design="new"] .ng-soc .ng-h { margin: 0 0 8px; padding: 0; background: none; border: 0; text-align: left; color: #999;
+  font: 11px/1.3 fontTeuL, Arial, Verdana, sans-serif; letter-spacing: .05em; text-transform: uppercase; }
+html[data-design="new"] .ng-soc-row { display: flex; justify-content: space-between; gap: 8px; margin: 0; padding: 0 6px; }
+html[data-design="new"] .ng-soc-i { display: flex; flex-direction: column; align-items: center; gap: 5px; width: 25%; color: #777; text-decoration: none;
+  text-align: center; text-transform: uppercase; letter-spacing: .03em; font: 10px/1.2 fontTeuL, Arial, Verdana, sans-serif; }
 html[data-design="new"] .ng-soc-i:hover { color: #F29400; }
-html[data-design="new"] .ng-soc-tile { position: relative; display: flex; align-items: center; justify-content: center; width: 56px; height: 56px;
-  border-radius: 14px; box-shadow: 0 2px 6px rgba(0,0,0,.18); transition: transform .15s; }
-html[data-design="new"] .ng-soc-i:hover .ng-soc-tile { transform: translateY(-2px); }
-html[data-design="new"] .ng-soc-tile svg { width: 30px; height: 30px; fill: #fff; }
+html[data-design="new"] .ng-soc-tile { position: relative; display: flex; align-items: center; justify-content: center; width: 28px; height: 28px;
+  border-radius: 7px; box-shadow: 0 1px 3px rgba(0,0,0,.18); transition: transform .15s; }
+html[data-design="new"] .ng-soc-i:hover .ng-soc-tile { transform: translateY(-1px); }
+html[data-design="new"] .ng-soc-tile svg { width: 15px; height: 15px; fill: #fff; }
 html[data-design="new"] .ng-soc-vip { background: linear-gradient(160deg, #4a4a4a 0%, #1c1c1c 55%, #000 100%); }
-html[data-design="new"] .ng-soc-vip-t { display: block; color: #fff; text-align: center; font: 11px/1.05 fontTeuB, Arial, Verdana, sans-serif; letter-spacing: .08em; }
-html[data-design="new"] .ng-soc-vip-t b { display: block; color: #fff; font-family: inherit; font-weight: 400; font-size: 19px; letter-spacing: .12em; }
+html[data-design="new"] .ng-soc-vip-t { display: block; color: #fff; text-align: center; font: 6px/1.05 fontTeuB, Arial, Verdana, sans-serif; letter-spacing: .06em; }
+html[data-design="new"] .ng-soc-vip-t b { display: block; color: #fff; font-family: inherit; font-weight: 400; font-size: 10px; letter-spacing: .1em; }
 html[data-design="new"] .ng-soc-fb { background: linear-gradient(180deg, #18acfe 0%, #0163e0 100%); }
 html[data-design="new"] .ng-soc-ig { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%); }
 html[data-design="new"] .ng-soc-yt { background: linear-gradient(160deg, #ff3d3d 0%, #ff0000 50%, #c40000 100%); }
 /* ovál Author (z původního loga, bez nápisu) jako malý červený odznak v rohu každé ikony */
-html[data-design="new"] .ng-soc-badge { position: absolute; right: -8px; bottom: -6px; width: 30px; height: 21px; border-radius: 50%; background: #fff url('author_oval.png') center / 26px auto no-repeat; box-shadow: 0 1px 3px rgba(0,0,0,.25); }
+html[data-design="new"] .ng-soc-badge { position: absolute; right: -4px; bottom: -3px; width: 15px; height: 10px; border-radius: 50%;
+  background: #fff url('author_oval.png') center / 13px auto no-repeat; box-shadow: 0 1px 2px rgba(0,0,0,.25); }
