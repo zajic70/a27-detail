@@ -31,24 +31,49 @@ Diff proti originálu: `diff _orig/index_lokalni_kopie.html index.html` (2 řád
 
 ## Co dělá nový design
 
-- **Galerie**: velká fotka (4:3) s jednoduchými šipkami (jen chevron), swipem prstem i myší. Pod ní **jedna řada náhledů bez posuvníku** (posun prstem / tažením myši, okraje průhledně mizí), aktivní náhled má **oranžové podtržení** (#F29400); malé šipky leží přes levý a pravý okraj řady, fotky pod nimi prosvítají (šipka je vidět jen tam, kam se dá řada posunout). Pod řadou uprostřed počet fotek a videí v podobě původní ikony videa z pravého sloupce: číslo a za ním ikona 19 px (fotky `new/ico_image.svg`, videa původní `system/img/ico_camera.svg`); klik skočí na první fotku / video. Původní ikona videa vpravo (`.lypi-naviico .kni-video`) je v novém designu skrytá, celý řádek jen pokud v něm není nic jiného (např. 3D model). Video je v řadě jako náhled s ikonou play. Klik na fotku otevře **lightbox se všemi fotkami (a videem) pod sebou** (křížek je na oranžovém kruhu, aby byl vidět i nad bílou fotkou): scrolluje se, klepnutí/klik fotku zvětší (220 %), na mobilu jde i štípnutí; křížek nebo Esc zavře.
-- **Otevřená okna** (lightbox, popis, mobilní náhled): stránka pod nimi neroluje a je vidět jen jeden posuvník – původní web má `html { overflow-y: scroll }`, proto `html:has(> body.ng-lock) { overflow-y: hidden }`. Lightbox má plně černé pozadí.
-- **Jiný modelový rok** (`.lyp-time .timeline`, `buildYears()`): na mobilu (do 840 px) je to rozbalovací tmavý pruh se šipkou jako záložky specifikace, roky jsou výchozí sbalené, písmo stejné jako u záložek (`fontTeuL`). Na počítači beze změny.
-- **Piktogramy** (`.ng-soc`, `buildSocial()`): pod štítky a nad „Ostatní modely“ malý jemně šedý blok „odjinud“ (pozadí #f6f6f6) s nadpisem „Novinky, návody, akce a tipy“ drobným šedým písmem na středu a pěti ikonami VIP Bikes, Facebook, Instagram, YouTube, Newsletter. Aplikační ikony 28 px se zaobleným čtvercem a barevným přechodem; VIP Bikes je černá s bílým nápisem „VIP“ a ikonou kola a popiskem „Author’s Heroes“, každá ikona má v rohu malý červený ovál Author (`new/author_oval.png`, vyříznutý z původního loga bez nápisu). Odkazy v testovací kopii vedou na `#`, skutečné cíle jsou v atributu `data-url`: VIP Bikes https://hero.author.eu/, https://www.facebook.com/Author.cz/?locale=cs_CZ, https://www.instagram.com/authorbicycles/, https://www.youtube.com/@authoradmin; **adresa Newsletteru zatím není doplněná** (`data-url` je prázdné). Při nasazení dát `data-url` do `href`.
-- **Nadpisy Popis a Ostatní modely**: šedý pruh (#f0f0f0) přes celou šířku sloupce s oranžovým proužkem vlevo (4 px #F29400). Nadpis „Popis“ (`.ng-h`) vkládá JS nad sbalený text, „Ostatní modely“ je původní `.km-ostatni`.
-- **Dlouhý popis** (`.lypi-perex`): sbalený (větší písmo 1,05 rem, tučné 1 rem, výška ~10 rem) s přechodem do bílé. Tlačítko „Více…“ (šedý text se šipkou, popis v modálním okně – stejné řešení jako na Alze) (napůl přes mizející spodní okraj textu) otevře **modální okno** s větším písmem: velká fotka, název a úvod, znovu hlavní přednosti (kopie `.lypi-hdl`) a pod nimi „Podrobný popis“ (zbytek textu). Úvod = první 2 bloky textu oddělené dvojitým `<br>`, zbytek je podrobný popis (viz `buildModal()` v JS). Zavření: křížek, klik mimo, Esc.
-- **Barevné varianty** (`.lypi-barva`): bez popisku „Barevné varianty“, zůstávají jen barevné čtverečky (jen CSS).
-- **Kde koupit – seznam dealerů** (`#kb-dostupnost`, jen CSS): 
-  - u dealera s proklikem na web se ukáže jen **město, web (tlačítko) a mapa**; telefon a e-mail jsou schované, zájemce je najde na webu dealera (stejný princip jako na ketaj.cz). Dealeři bez webu mají kontakt dál. Hlavička sloupce „Kontakt na prodejce“ zůstává jen proto, že takový dealer (Pavel Brabec) v seznamu je. Na mobilu se kontakt schová úplně.
-  - informace s košíkem, „skladem“ a „objednat“ ve sloupci Dostupnost se u dealerů nezobrazuje (není důležitá a vedla na totéž co tlačítko, byla tam dvě stejná tlačítka); zůstává jen jedno barevné tlačítko. Sloupec Dostupnost má dál obsah jen u souhrnných řádků („11 prodejen“, „Na ostatních prodejnách“).
-  - v řádku dealera jsou vedle sebe tři tlačítka: **KOUPIT / OBJEDNAT TEĎ** (červené), **WEB** a **MAPA** (šedé podbarvení). WEB vede na hlavní adresu dealera (odvozeno z adresy jeho e-shopu), MAPA otevře původní mapu. Dealer bez webu (Pavel Brabec) má jen koupit a mapu. Platí na počítači i na mobilu (`buildDealers()` v JS).
-  - tlačítka „objednat teď“ a „koupit teď“ jsou **stejně široká** (118 px), barvy zůstávají původní: oranžové „objednat teď“, červené „koupit teď“. WEB a MAPA jsou také stejně široká (64 px).
-  - všechny údaje a hlavičky v tabulce jsou zarovnané vlevo a tabulka je jen tak široká, jak je potřeba (na počítači); odkaz „dealeři“ (dealerská síť) v řádku „Na ostatních prodejnách“ vypadá jako ostatní šedá tlačítka.
-- **Varianty na mobilu** (`#kb-varianty`): ikonka barev se už nezlamuje (v původním mobilním rozložení se dva barevné proužky smrštily na 3 px). Řádek je zalomený: nahoře ikonka a název varianty, pod nimi velikosti s kódy (jen CSS, do 840 px).
-- **Cena** (`.k-cena`): celá sekce je zarovnaná vpravo. Nahoře původní cena, pod ní tlačítko KOUPIT TEĎ a těsně za ním (úplně vpravo) šedé pole s akční cenou. Jen CSS, vzhled prvků zůstává původní.
-- **Přidat k porovnání / Doplňková výbava**: šedá tlačítka hned pod cenou (viz Tlačítka níže).
-- **Ostatní modely**: celý blok (nadpis, seznam, tlačítko) je vystředěný v pravém sloupci, viditelné jen 4, seznam dole mizí do bílé (obal `.ng-models-wrap`), v nadpisu počet (např. „ostatní modely (10)“). Tlačítko „Více…“ leží napůl přes mizející okraj; po rozbalení je pod seznamem jako „Méně…“ (`buildModels()` v JS).
-- **Tlačítka**: všechna stejně vysoká (32 px, fontTeuB 13 px, verzálky), menší než cena a KOUPIT TEĎ (ty zůstávají původní). „Přidat k porovnání“ a „Doplňková výbava“ vypadají jako záložky specifikace (šedé #828282, bílé písmo, vedle sebe přes celou šířku, při najetí oranžové), leží hned pod cenou; vytvořená JS, klik předají původním odkazům (originál je v novém designu skrytý: `.k-mp-lmenu`). Rozbalovací tlačítka „Více…“ a „Více…“ u modelů jsou šedý text „Více…“ (u modelů po rozbalení „Méně…“) a vpravo jen šipka dolů/nahoru v barvě písma (maska, currentColor) na průhledném pozadí (ikona jako v mobilním akordeonu specifikace), při najetí oranžový.
+Vše platí na počítači i na mobilu, pokud není uvedeno jinak. Původní design zůstává beze změny (jde přepnout přepínačem).
+
+### Horní část: název, barvy, cena
+- **Barevné varianty** (`.lypi-barva`): bez popisku „Barevné varianty“, vedle barevného vzorku je **název barvy** (např. „zelenozlatá-matná / černá“; bere se z atributu `title` vzorku, u více barev název vybrané; `buildColorName()` v JS).
+- **Cena** (`.k-cena`): cenový blok je **přesunutý nahoru, hned pod název a barevné varianty**, před dlouhý výčet předností s fajfkami (`placePrice()` v JS; v původním designu zůstává na původním místě za výčtem). Je zarovnaný vpravo: nahoře původní cena, pod ní tlačítko KOUPIT TEĎ a těsně za ním (úplně vpravo) šedé pole s akční cenou. Vzhled prvků zůstává původní.
+- **Vaše velikost / K porovnání / Doplňky**: tři šedá, stejně široká tlačítka hned pod cenou, v tomto pořadí a s těmito krátkými texty (původní „Přidat k porovnání“ a „Doplňková výbava“ jsou kratší, aby se vešly i na mobil). Nové tlačítko **Vaše velikost** otevře záložku „Geometrie a velikosti“ (na mobilu rozbalí stejnojmennou sekci), stejně jako Doplňky otevírají doplňkovou výbavu. Tlačítka vytváří JS a klik předávají původním odkazům (originál `.k-mp-lmenu` je v novém designu skrytý).
+
+### Galerie
+- Velká fotka (4:3) s jednoduchými šipkami (jen chevron), swipem prstem i myší. Pod ní **jedna řada náhledů bez posuvníku** (posun prstem / tažením myši), aktivní náhled má **oranžové podtržení** (#F29400). Šipky leží přes levý a pravý okraj řady, fotky pod nimi prosvítají (šipka je vidět jen tam, kam se dá řada posunout). Video je v řadě jako náhled s ikonou play.
+- Pod řadou uprostřed **počet fotek a videí** v podobě původní ikony videa z pravého sloupce: číslo a za ním ikona 19 px (fotky `new/ico_image.svg`, videa původní `system/img/ico_camera.svg`); klik skočí na první fotku / video. Původní ikona videa vpravo (`.lypi-naviico .kni-video`) je skrytá, celý řádek jen pokud v něm není nic jiného (např. 3D model).
+- Klik na fotku otevře **lightbox se všemi fotkami (a videem) pod sebou**: scrolluje se, klepnutí/klik fotku zvětší (220 %), na mobilu jde i štípnutí; křížek (na oranžovém kruhu, aby byl vidět i nad bílou fotkou) nebo Esc zavře.
+- **Rychlé načtení**: první fotka se zobrazí hned, zbytek se dotahuje později (viz sekce Pro programátora).
+
+### Popis
+- Nadpis **Popis** (šedý pruh s oranžovým proužkem vlevo, `.ng-h`) a pod ním sbalený text (`.lypi-perex`) s větším písmem (1,05 rem, tučné 1 rem, výška ~10 rem) a přechodem do bílé.
+- Tlačítko **Více…** (šedý text se šipkou) otevře **modální okno** (stejné řešení jako na Alze) s větším písmem: okno se otevře rovnou na podrobném textu, nad ním je velká fotka, název, úvod (první 2 bloky textu dělené dvojitým `<br>`) a znovu hlavní přednosti (kopie `.lypi-hdl`). Zavření: křížek, klik mimo, Esc (`buildModal()` v JS).
+
+### Piktogramy
+- Pod štítky a nad „Ostatními modely“ malý jemně šedý blok „odjinud“ (pozadí #f6f6f6) s nadpisem „Novinky, návody, akce a tipy“ drobným šedým písmem na středu a pěti ikonami: **VIP Bikes** (popisek „Author’s Heroes“), **Facebook**, **Instagram**, **YouTube**, **Newsletter** (`.ng-soc`, `buildSocial()`).
+- Aplikační ikony 28 px se zaobleným čtvercem a barevným přechodem; VIP Bikes je černá s „VIP“ a ikonou kola, každá ikona má v rohu malý červený ovál Author (`new/author_oval.png`, vyříznutý z původního loga bez nápisu).
+- Odkazy v testovací kopii vedou na `#`, skutečné cíle jsou v atributu `data-url`: VIP Bikes https://hero.author.eu/, https://www.facebook.com/Author.cz/?locale=cs_CZ, https://www.instagram.com/authorbicycles/, https://www.youtube.com/@authoradmin; **adresa Newsletteru zatím není doplněná** (`data-url` je prázdné). Při nasazení dát `data-url` do `href`.
+
+### Ostatní modely
+- Celý blok (nadpis, seznam, tlačítko) je vystředěný v pravém sloupci. Vidět jsou **4 modely celé** (poslední není pod bílým přechodem), v nadpisu počet (např. „ostatní modely (10)“). Tlačítko **Více…** je těsně pod seznamem, po rozbalení „Méně…“ (obal `.ng-models-wrap`, `buildModels()` v JS). Nadpis je šedý pruh s oranžovým proužkem jako „Popis“.
+
+### Jiný modelový rok
+- Na mobilu (do 840 px) rozbalovací tmavý pruh se šipkou jako záložky specifikace, roky jsou výchozí sbalené, písmo stejné jako u záložek (`.lyp-time .timeline`, `buildYears()`). Na počítači beze změny.
+
+### Kde koupit – seznam dealerů (`#kb-dostupnost`, jen CSS a `buildDealers()`)
+- U dealera s proklikem na web se ukáže jen **město, web (tlačítko) a mapa**; telefon a e-mail jsou schované, zájemce je najde na webu dealera (stejný princip jako na ketaj.cz). Dealeři bez webu mají kontakt dál (hlavička „Kontakt na prodejce“ proto zůstává). Na mobilu se kontakt schová úplně.
+- Informace s košíkem, „skladem“ a „objednat“ ve sloupci Dostupnost se nezobrazuje (vedla na totéž co tlačítko).
+- V řádku dealera jsou vedle sebe tři tlačítka: **OBJEDNAT TEĎ / KOUPIT TEĎ** (barvy původní: oranžové objednat, červené koupit, obě stejně široká, 118 px), **WEB** (hlavní adresa dealera, odvozená z adresy jeho e-shopu) a **MAPA** (otevře původní mapu), obě šedá a stejně široká (64 px). Dealer bez webu (Pavel Brabec) má jen koupit a mapu.
+- Název firmy je v lehce šedém poli na středu (bez odrážky). Velikost kola (17", 19", 20,5") u každé varianty je **červeně**.
+- Řádek „Na ostatních prodejnách“ je rovnou jedno tmavé tlačítko (text a odkaz „dealeři“ spojené, klik jde původnímu odkazu).
+- Všechny údaje a hlavičky v tabulce jsou zarovnané vlevo a tabulka je jen tak široká, jak je potřeba (na počítači).
+
+### Varianty na mobilu (`#kb-varianty`)
+- Ikonka barev se už nezlamuje (v původním mobilním rozložení se dva barevné proužky smrštily na 3 px). Řádek je zalomený: nahoře ikonka a název varianty, pod nimi velikosti s kódy (do 840 px).
+
+### Společné
+- **Zarovnání textů**: žádné zarovnání do bloku, delší texty jsou zarovnané vlevo (původní web má `text-align: justify` na celém `body`).
+- **Otevřená okna** (lightbox, popis, mobilní náhled): stránka pod nimi neroluje a je vidět jen jeden posuvník (původní web má `html { overflow-y: scroll }`, proto `html:has(> body.ng-lock) { overflow-y: hidden }`). Lightbox má plně černé pozadí.
+- **Tlačítka**: stejně vysoká (32 px, fontTeuB 13 px, verzálky), menší než cena a KOUPIT TEĎ (ty zůstávají původní). Rozbalovací tlačítka „Více…“ (u popisu i u modelů) jsou šedý text se šipkou dolů/nahoru v barvě písma (ikona jako v mobilním akordeonu specifikace), při najetí oranžový.
 
 ## Pro programátora při nasazení
 
@@ -71,7 +96,6 @@ Slouží jen k vyzkoušení stránky, v ostré verzi být nemají.
 - **Testovací úpravy (při nasazení vrátit):** chat Smartsupp odstraněn (komentář na jeho místě) a `<meta name="robots">` přepnuto z `index,follow` na `noindex,nofollow`, aby vyhledávače nebraly testovací kopii na GitHub Pages jako druhý web.
 - **Testovací kopie nikam nepřekliká (při nasazení vrátit):** všech 380 odkazů `<a href>` vede na `#` (nechány jen `#!…` záložky specifikace, které čte `web.js`) a `action` hledacího formuláře je `#`. V `new.js` je navíc funkce `blockNavigation()`: ruší výchozí akci kliknutí na odkazy, odeslání formulářů a přepnutí jazyka (`#changeHreflang`). Původní odkazy jsou v `_orig/index_lokalni_kopie.html`.
 - **Označení testovací kopie (při nasazení smazat):** logo v hlavičce je oranžové s černým okrajem a přetiskem „TEST PAGE“ (blok `DEV` na začátku v `new.css`, pravidla `.tpanel .logo`).
-
 - **Přepínač Původní / Nový** vlevo dole (`.ds`). Volba přes `?design=old|new`, jinak z `localStorage` (klíč `a24-design`), výchozí je `new`. Druhá část přepínače **Počítač / Mobil** (`localStorage` klíč `a24-view`): Mobil zobrazí stejnou stránku v rámu (`iframe`, `.dsm`) širokém 390 px, takže platí mobilní styly; rám se načítá s `?frame=1` a v něm se přepínač nevytváří. Jen pro testování, maže se spolu s přepínačem. Tlačítko **Co je nového** v přepínači otevře okno (`.dsc`, seznam `CHANGES` v `new.js`) se stručným přehledem změn pro testery; maže se také s přepínačem.
 - DEV blok na konci `new/new.css` (skrytí cookie lišty a dialogu chatu, zůstává jen kolečko) je jen pro testování, při nasazení smazat.
 

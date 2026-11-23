@@ -35,6 +35,7 @@
     for (var i = 0; i < btns.length; i++) {
       btns[i].setAttribute('aria-pressed', btns[i].getAttribute('data-mode') === m ? 'true' : 'false');
     }
+    placePrice(m);
     // Slick v původní galerii se počítá podle šířky – po zobrazení (a po dotažení lazy fotek) znovu přepočítat.
     if (window.jQuery) {
       var pos = function () { try { window.jQuery('#sldKartaID').slick('setPosition'); } catch (e) {} };
@@ -112,18 +113,18 @@
 
   /* ---------- okno „Co je nového“: stručný přehled změn (jen pro testování, maže se s přepínačem) ---------- */
   var CHANGES = [
-    ['Galerie', 'Velká fotka a pod ní jedna řada náhledů (posun prstem, tažením myši nebo šipkami přes okraje řady). Aktivní fotka má oranžové podtržení. Klik na fotku otevře všechny fotky pod sebou se zvětšením (křížek na oranžovém kruhu).'],
+    ['Barevné varianty', 'Bez popisku nad vzorkem, vedle vzorku je název barvy.'],
+    ['Cena', 'Je hned pod názvem a barvou, před výčtem předností. Vpravo: nahoře původní cena, pod ní tlačítko KOUPIT TEĎ a za ním akční cena úplně vpravo.'],
+    ['Vaše velikost, K porovnání, Doplňky', 'Tři šedá stejně široká tlačítka pod cenou. Nové tlačítko Vaše velikost otevře Geometrii a velikosti.'],
+    ['Galerie', 'Velká fotka a pod ní jedna řada náhledů (posun prstem, tažením myši nebo šipkami přes okraje řady). Aktivní fotka má oranžové podtržení. Klik na fotku otevře všechny fotky pod sebou se zvětšením (křížek na oranžovém kruhu). První fotka se zobrazí hned, zbytek se dotahuje později.'],
     ['Počet fotek a videí', 'Pod náhledy (např. 11 fotek, 1 video). Ikona videa se přesunula z pravého sloupce sem.'],
-    ['Popis', 'Dlouhý text je sbalený a celý se otevře přes „Více…“ v modálním okně s větším písmem a hlavními přednostmi (stejné řešení jako na Alze).'],
-    ['Nadpisy', 'Popis a Ostatní modely mají šedý pruh s oranžovým proužkem vlevo.'],
-    ['Kde koupit', 'U dealera s webem jen město, web a mapa (telefon a e-mail jsou schované). Bez informace o košíku a skladu. V řádku dealera vedle sebe koupit / objednat (červené), web a mapa (šedé). Tlačítka koupit a objednat stejně široká (barvy původní), údaje zarovnané vlevo, odkaz Dealeři jako tlačítko.'],
-    ['Barevné varianty','Bez popisku nad barevnými čtverečky.'],
-    ['Cena','Sekce je vpravo: nahoře původní cena, pod ní tlačítko KOUPIT TEĎ a za ním akční cena úplně vpravo.'],
-    ['Porovnání a výbava','Tlačítka jsou hned pod cenou, ve stylu záložek specifikace.'],
-    ['Ostatní modely', 'Vidět jsou 4, zbytek přes „Více…“. Blok je na středu.'],
-    ['Tlačítka', 'Jednotná velikost. Cena a KOUPIT TEĎ beze změny.'],
+    ['Popis', 'Nadpis Popis a sbalený text s větším písmem. Celý se otevře přes „Více…“ v modálním okně (stejné řešení jako na Alze), rovnou na podrobném textu.'],
+    ['Piktogramy', 'Pod popisem malý šedý blok Novinky, návody, akce a tipy s pěti malými ikonami: VIP Bikes, Facebook, Instagram, YouTube a Newsletter. Mají barevný přechod a červený ovál Author v rohu (v testovací kopii nikam nevedou).'],
+    ['Ostatní modely', 'Vidět jsou 4 celé, zbytek přes „Více…“ pod seznamem. Blok je na středu.'],
     ['Jiný modelový rok', 'Na mobilu je to rozbalovací pruh jako záložky specifikace.'],
-    ['Piktogramy', 'Pod popisem malý šedý blok Novinky, návody, akce a tipy s pěti malými ikonami: VIP Bikes, Facebook, Instagram, YouTube a Newsletter Authoru. Mají barevný přechod a červený ovál Author v rohu (v testovací kopii nikam nevedou).']
+    ['Kde koupit', 'U dealera s webem jen město, web a mapa (telefon a e-mail jsou schované). V řádku vedle sebe objednat/koupit (původní barvy, stejně široká), web a mapa (šedé). Název firmy v šedém poli na středu, velikost červeně, „Na ostatních prodejnách“ jako tmavé tlačítko. Bez informace o košíku a skladu, údaje vlevo.'],
+    ['Texty', 'Bez zarovnání do bloku, delší texty jsou zarovnané vlevo.'],
+    ['Tlačítka', 'Rozbalovací „Více…“ se šipkou, ostatní tlačítka stejně vysoká. Cena a KOUPIT TEĎ beze změny.']
   ];
   function openChanges() {
     var m = document.querySelector('.dsc');
@@ -444,10 +445,30 @@
       var orig = document.querySelector(sel);
       if (!orig) return;
       var b = el('button', 'ng-btn ng-btn-grey', { type: 'button' });
-      b.textContent = orig.textContent.trim();
+      b.textContent = sel.indexOf('porovnat') > -1 ? 'K porovnání' : 'Doplňky';
       b.addEventListener('click', function () { orig.click(); });
       actions.appendChild(b);
     });
+    // Velikosti: otevře záložku Geometrie a velikosti (na mobilu rozbalí stejnojmennou sekci), jako to dělá Doplňková výbava
+    if (document.getElementById('km-geometrie')) {
+      var sz = el('button', 'ng-btn ng-btn-grey', { type: 'button' });
+      sz.textContent = 'Vaše velikost';
+      sz.addEventListener('click', function () {
+        var target;
+        if (document.documentElement.clientWidth <= 840) {
+          var h = document.querySelector('#kb-geometrie .kb-acc-h2');
+          if (!h) return;
+          var arr = h.querySelector('span');
+          if (!arr || !arr.classList.contains('open')) h.click();
+          target = h;
+        } else {
+          document.getElementById('km-geometrie').click();
+          target = document.getElementById('km-geometrie');
+        }
+        setTimeout(function () { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 50);
+      });
+      actions.insertBefore(sz, actions.firstChild);   // Vaše velikost je první
+    }
     var cena = document.querySelector('.lypi-cena');
     if (cena) cena.parentNode.insertBefore(actions, cena.nextSibling);
     else wrap.parentNode.insertBefore(actions, wrap);
@@ -456,9 +477,16 @@
     btn.addEventListener('click', function () {
       if (!modal) modal = buildModal(p);
       modal.hidden = false;
-      modal.scrollTop = 0;
-      modal.querySelector('.nm-box').scrollTop = 0;
       document.body.classList.add('ng-lock');
+      // okno se otevře rovnou na podrobném textu (nahoře zůstává fotka, název a úvod, stačí posunout nahoru)
+      var sub = modal.querySelector('.nm-sub');
+      var toDetail = function () {
+        modal.scrollTop = sub ? sub.getBoundingClientRect().top - modal.getBoundingClientRect().top + modal.scrollTop - 16 : 0;
+      };
+      toDetail();
+      // fotka v okně se dotahuje a posune obsah, proto po jejím načtení posun zopakujeme
+      var photo = modal.querySelector('.nm-photo');
+      if (photo && !photo.complete) photo.addEventListener('load', toDetail, { once: true });
     });
 
     buildModels();
@@ -531,6 +559,20 @@
     anchor.parentNode.insertBefore(sec, anchor);
   }
 
+  /* ---------- název barvy vedle barevného vzorku (z atributu title vzorku; u více barev název právě vybrané) ---------- */
+  function buildColorName() {
+    var box = document.querySelector('.lypi-barva');
+    if (!box || box.querySelector('.ng-clr-name')) return;
+    var lab = el('span', 'ng-clr-name');
+    box.appendChild(lab);
+    function upd() {
+      var a = box.querySelector('.barva-pruh.active') || box.querySelector('.barva-pruh');
+      lab.textContent = a ? (a.getAttribute('title') || '') : '';
+    }
+    upd();
+    if (window.MutationObserver) new MutationObserver(upd).observe(box, { subtree: true, attributes: true, attributeFilter: ['class'] });
+  }
+
   /* ---------- Jiný modelový rok: na mobilu rozbalovací jako záložky specifikace (vzhled jen v CSS pod 840 px) ---------- */
   function buildYears() {
     var t = document.querySelector('.lyp-time .timeline');
@@ -577,8 +619,30 @@
       if (tr.getAttribute('data-ng-done')) return;
       var buy = tr.querySelector('a.btn-dstp-koupit');
       var map = tr.querySelector('a.dstp-mapa');
+      // řádek „Na ostatních prodejnách“: text + odkaz „dealeři“ se spojí v jedno tmavé tlačítko (klik se předá původnímu odkazu)
+      if (!buy && map && /ndealmapa/.test(map.getAttribute('target') || '')) {
+        tr.setAttribute('data-ng-done', '1');
+        var txtCell = tr.children[1];
+        if (txtCell) {
+          var old = el('span', 'ng-dl-other-txt');
+          while (txtCell.firstChild) old.appendChild(txtCell.firstChild);
+          txtCell.appendChild(old);
+          var ob = el('a', 'ng-dl-other', { href: '#' });
+          ob.textContent = 'Na ostatních prodejnách';
+          ob.addEventListener('click', function (e) { e.preventDefault(); map.click(); });
+          txtCell.appendChild(ob);
+        }
+        return;
+      }
       if (!buy) return;
       tr.setAttribute('data-ng-done', '1');
+      // odrážku před názvem firmy schováme (název je v novém designu v šedém poli na středu)
+      var nameCell = tr.children[1];
+      if (nameCell && nameCell.firstChild && nameCell.firstChild.nodeType === 3) {
+        var bullet = el('span', 'ng-dl-bullet');
+        bullet.textContent = nameCell.firstChild.textContent;
+        nameCell.replaceChild(bullet, nameCell.firstChild);
+      }
       var box = el('span', 'ng-dl-btns');
       buy.parentNode.insertBefore(box, buy);
       box.appendChild(buy);
@@ -599,12 +663,25 @@
     });
   }
 
+  /* ---------- cena a nákupní akce hned pod název a barevné varianty, před dlouhý výčet předností ----------
+     V novém designu se cenový blok (.k-cena) i s tlačítky porovnání a výbavy (.ng-actions) přesune před výčet (.lypi-hdl),
+     v původním designu se vrátí na původní místo za něj. */
+  function placePrice(m) {
+    var cena = document.querySelector('.k-cena.lypi-cena');
+    var hdl = document.querySelector('.lypi-hdl');
+    if (!cena || !hdl || cena.parentNode !== hdl.parentNode) return;
+    var actions = document.querySelector('.ng-actions');
+    hdl.parentNode.insertBefore(cena, m === 'new' ? hdl : hdl.nextSibling);
+    if (actions) cena.parentNode.insertBefore(actions, cena.nextSibling);
+  }
+
   function init() {
     if (!inFrame) buildSwitch();
     buildCollapse();
     buildYears();
     buildSocial();
     buildDealers();
+    buildColorName();
     setMode(mode);
     // galerii stavíme hned, ne až po načtení všech obrázků (load); po load se jen doplní, kdyby tehdy ještě nebyly slidy
     buildGallery();
