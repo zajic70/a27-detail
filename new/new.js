@@ -119,7 +119,7 @@
     ['Tlačítka', 'Jednotná velikost. Cena a KOUPIT TEĎ beze změny.'],
     ['Jiný modelový rok', 'Na mobilu je to rozbalovací pruh jako záložky specifikace.'],
     ['Testovací kopie', 'Logo v hlavičce je oranžové s černým okrajem a nápisem TEST PAGE. Odkazy nikam nevedou, stránka nic neodesílá. Slouží jen k prohlédnutí vzhledu.'],
-    ['Piktogramy', 'Pod popisem odkazy na Hero, Facebook, Instagram a YouTube Authoru: ikony s barevným přechodem a červeným oválem Author (v testovací kopii nikam nevedou).'],
+    ['Piktogramy', 'Pod popisem nadpis Novinky, návody, akce a tipy a čtyři ikony: VIP Bikes, Facebook, Instagram a YouTube Authoru. Mají barevný přechod a červený ovál Author v rohu (v testovací kopii nikam nevedou).'],
     ['Přepínač', 'Původní / Nový design a Počítač / Mobil slouží jen pro vyzkoušení.']
   ];
   function openChanges() {
@@ -458,7 +458,7 @@
   /* ---------- piktogramy (Hero, Facebook, Instagram, YouTube) mezi štítky a Ostatními modely ----------
      Odkazy vedou na "#" (testovací kopie), cílové adresy jsou v data-url pro programátora. */
   var SOC = [
-    ['hero', 'Hero', 'https://hero.author.eu/', ''],
+    ['vip', 'VIP Bikes', 'https://hero.author.eu/', ''],
     ['fb', 'Facebook', 'https://www.facebook.com/Author.cz/?locale=cs_CZ',
       '<path d="M9.2 16V9.1h2.3l.35-2.7H9.2V4.7c0-.78.22-1.31 1.34-1.31h1.43V.98A19 19 0 0 0 9.88.87C7.81.87 6.4 2.13 6.4 4.45v1.95H4.07v2.7H6.4V16z"/>'],
     ['ig', 'Instagram', 'https://www.instagram.com/authorbicycles/',
@@ -469,12 +469,16 @@
   function buildSocial() {
     var anchor = document.querySelector('.lypi-mp-rmenu');
     if (!anchor || document.querySelector('.ng-soc')) return;
-    var box = el('nav', 'ng-soc', { 'aria-label': 'Author na webu a sociálních sítích' });
+    var sec = el('section', 'ng-soc');
+    var head = el('strong', 'ng-h');
+    head.textContent = 'Novinky, návody, akce a tipy';
+    sec.appendChild(head);
+    var box = el('nav', 'ng-soc-row', { 'aria-label': 'Author na webu a sociálních sítích' });
     SOC.forEach(function (x) {
       var a = el('a', 'ng-soc-i', { href: '#', 'data-url': x[2] });
       var tile = el('span', 'ng-soc-tile ng-soc-' + x[0]);
-      if (x[0] === 'hero') {
-        tile.appendChild(el('span', 'ng-soc-oval'));
+      if (x[0] === 'vip') {
+        tile.innerHTML = '<span class="ng-soc-vip-t"><b>VIP</b>BIKES</span><span class="ng-soc-badge"></span>';
       } else {
         tile.innerHTML = '<svg viewBox="0 0 16 16" aria-hidden="true">' + x[3] + '</svg><span class="ng-soc-badge"></span>';
       }
@@ -482,7 +486,8 @@
       a.appendChild(document.createTextNode(x[1]));
       box.appendChild(a);
     });
-    anchor.parentNode.insertBefore(box, anchor);
+    sec.appendChild(box);
+    anchor.parentNode.insertBefore(sec, anchor);
   }
 
   /* ---------- Jiný modelový rok: na mobilu rozbalovací jako záložky specifikace (vzhled jen v CSS pod 840 px) ---------- */
