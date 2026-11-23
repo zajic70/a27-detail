@@ -70,7 +70,7 @@ Vše platí na počítači i na mobilu, pokud není uvedeno jinak. Původní des
 - Na počítači jsou **tlačítka a město hned za názvem pobočky** (název má pevnou šířku, bez prázdného sloupce Dostupnost). Na mobilu nejsou mezi řádky dealerů tečkované čáry.
 - Název firmy je v lehce šedém poli na středu (bez odrážky). Velikost kola (17", 19", 20,5") u každé varianty je **červeně**.
 - Řádek „Na ostatních prodejnách“ vypadá jako ostatní: šedé pole s textem na úrovni názvů firem a vedle něj (kde jsou u ostatních tlačítka) tmavé tlačítko **OBJEDNAT JINDE**, stejně široké; klik jde původnímu odkazu „dealeři“.
-- Celý seznam dealerů je na počítači **vystředěný** na stránce.
+- Celý seznam dealerů je na počítači **vystředěný** na stránce. Po sbalení a opětovném rozbalení varianty (šipka vlevo) zůstává rozložení řádků beze změny (původní skript je zobrazuje inline `display: table-row`, proto je v CSS `display: flex !important` pro takto zobrazené řádky).
 - Všechny údaje a hlavičky v tabulce jsou zarovnané vlevo a tabulka je jen tak široká, jak je potřeba (na počítači).
 
 ### Varianty na mobilu (`#kb-varianty`)
