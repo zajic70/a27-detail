@@ -439,6 +439,41 @@
     return m;
   }
 
+  /* posun k sekci s odsazením pod hlavičku webu (ať je vidět nadpis sekce i první řádek); čeká na dojetí posunu původního skriptu */
+  function scrollToSection(target) {
+    setTimeout(function () {
+      var hp = document.querySelector('.tpanel');
+      var off = 12;
+      if (hp) off += hp.getBoundingClientRect().height;   // výška hlavičky se počítá vždy (při rolování se může přepnout na pevnou)
+      window.scrollTo({ top: target.getBoundingClientRect().top + window.pageYOffset - off, behavior: 'smooth' });
+    }, 300);
+  }
+
+  /* Koupit teď (hlavní červené tlačítko): rozbalí rovnou sekci Kde koupit. Původní skript to dělá taky, ale na mobilu při rozbalení
+     ostatní sekce sbalí a stránka se přitom posune; proto po jeho kliknutí zajistíme otevřenou sekci a posuneme se k ní. */
+  function bindBuyNow() {
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('a.btnKT');
+      if (!a || root.getAttribute('data-design') !== 'new') return;
+      setTimeout(function () {
+        var target;
+        if (document.documentElement.clientWidth <= 840) {
+          var h = document.querySelector('#kb-dostupnost .kb-acc-h2');
+          if (!h) return;
+          var sp = h.querySelector('span');
+          if (!sp || !sp.classList.contains('open')) h.click();
+          target = h;
+        } else {
+          var tab = document.getElementById('km-dostupnost');
+          if (!tab) return;
+          if (!tab.classList.contains('active')) tab.click();
+          target = tab;
+        }
+        scrollToSection(target);
+      }, 150);
+    });
+  }
+
   function buildCollapse() {
     var p = document.querySelector('.lypi-perex');
     if (!p || p.getAttribute('data-ng-done')) return;
@@ -483,13 +518,7 @@
           document.getElementById('km-geometrie').click();
           target = document.getElementById('km-geometrie');
         }
-        // posun s odsazením pod pevnou horní lištu webu, ať je vidět nadpis sekce i první řádek (po dojetí vlastního posunu původního skriptu)
-        setTimeout(function () {
-          var hp = document.querySelector('.tpanel');
-          var off = 12;
-          if (hp) off += hp.getBoundingClientRect().height;   // výška hlavičky se počítá vždy (při rolování se může přepnout na pevnou)
-          window.scrollTo({ top: target.getBoundingClientRect().top + window.pageYOffset - off, behavior: 'smooth' });
-        }, 300);
+        scrollToSection(target);
       });
       actions.insertBefore(sz, actions.firstChild);   // Vaše velikost je první
     }
@@ -796,6 +825,7 @@
     buildYears();
     buildSocial();
     buildDealers();
+    bindBuyNow();
     buildVariantRows();
     buildColorName();
     buildStickyBar();

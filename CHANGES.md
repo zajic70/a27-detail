@@ -64,7 +64,8 @@ Vše platí na počítači i na mobilu, pokud není uvedeno jinak. Původní des
 ### Kde koupit – seznam dealerů (`#kb-dostupnost`, jen CSS a `buildDealers()`)
 - U dealera s proklikem na web se ukáže jen **město, web (tlačítko) a mapa**; telefon a e-mail jsou schované, zájemce je najde na webu dealera (stejný princip jako na ketaj.cz). Dealeři bez webu mají kontakt dál. Na mobilu se kontakt schová úplně.
 - **Nadpisy sloupců tabulky** (Barevná varianta, Velikost, Dostupnost, Nákup, Město, Kontakt na prodejce, Kód modelu) se nezobrazují vůbec, na počítači ani na mobilu.
-- Původní informace s košíkem ve sloupci Dostupnost je nahrazená krátkým **stavem před tlačítky**: „Skladem“ (zeleně) nebo „Do dvou dnů“ (`buildDealers()`).
+- Původní informace s košíkem ve sloupci Dostupnost je nahrazená krátkým **stavem před tlačítky**: „Skladem“ (zeleně, tučně) nebo „Do dvou dnů“ (oranžově) (`buildDealers()`).
+- **Koupit teď** (hlavní červené tlačítko v ceně) rozbalí rovnou sekci **Kde koupit** (na počítači záložku, na mobilu sekci, ostatní se zavřou) a posune se k ní s odsazením pod hlavičku (`bindBuyNow()`).
 - **Pevné sloupce:** stav, tlačítka a město jsou ve stejných sloupcích i u dealera bez WEBu (na jeho místě je prázdné místo, MAPA se neposouvá).
 - V řádku dealera jsou vedle sebe tři tlačítka: **OBJEDNAT TEĎ / KOUPIT TEĎ** (barvy původní: oranžové objednat, červené koupit, obě stejně široká, 118 px), **WEB** (hlavní adresa dealera, odvozená z adresy jeho e-shopu) a **MAPA** (otevře původní mapu), obě šedá a stejně široká (64 px). Dealer bez webu (Pavel Brabec) má jen koupit a mapu.
 - **Řádek varianty** (nadpis každé velikosti) má pořadí: vzorek barvy, **červená velikost**, název s objednacím číslem (např. „Sector 2026 zelenozlatá-matná / černá 17″  UA#42968602“) a až pak počet prodejen (`buildVariantRows()`). Celý řádek je na **jednotném světle šedém podkladu**; na mobilu se název s číslem v řádku zalomí místo ořezání.
